@@ -6,9 +6,11 @@
 
 import type { Service } from "@/components/sections/features";
 import type { FaqItem } from "@/components/sections/faq";
+import type { MosaicTile } from "@/components/sections/project-mosaic";
 import type { ProcessStep } from "@/components/sections/process";
 import type { Stat } from "@/components/sections/stats";
 import type { Testimonial } from "@/components/shared/testimonial-card";
+import { projects } from "@/content/projects";
 import { services } from "@/content/services";
 import type { Action, SectionIntro } from "@/types/content";
 
@@ -20,6 +22,7 @@ interface HomeContent {
     actions: { primary: Action; secondary: Action };
   };
   services: { intro: SectionIntro; items: Service[] };
+  projectsTeaser: { intro: SectionIntro; tiles: MosaicTile[]; cta: Action };
   stats: Stat[];
   process: { intro: SectionIntro; steps: ProcessStep[] };
   testimonials: { intro: SectionIntro; items: Testimonial[] };
@@ -27,16 +30,45 @@ interface HomeContent {
   cta: { title: string; subtitle: string; action: Action; note: string };
 }
 
+const teaserSlugs = [
+  "wohnhaus-eichenbergstrasse",
+  "buerogebaeude-wilhelmshoeher-allee",
+  "praxis-und-buerohaus-germania",
+  "henschel-schule-kassel",
+  "wohnen-am-mulang",
+  "hotel-schweizer-hof",
+];
+
 export const home: HomeContent = {
   hero: {
-    eyebrow: "Architekturbüro in Kassel seit 1992",
-    title: "Architektur, die Nutzung, Budget und Ort zusammendenkt",
+    eyebrow: "Architekturbüro in Kassel · seit 1992",
+    title: "Ort, Nutzung, Budget und Ökologie zu einem Raumerlebnis verdichtet",
     subtitle:
-      "Ohlmeier Architekten begleitet Bauvorhaben vom ersten Entwurf bis zur Bauüberwachung — für private Bauherren ebenso wie für Büro-, Pflege- und Bildungsbauten.",
+      "Ohlmeier Architekten begleitet Bauvorhaben von der ersten Skizze bis zum Projektabschluss — mit klarer Gestaltung und einem gezielten Einsatz gestalterischer Mittel.",
     actions: {
       primary: { label: "Projekt anfragen", href: "/kontakt" },
-      secondary: { label: "Leistungen ansehen", href: "/leistungen" },
+      secondary: { label: "Projekte ansehen", href: "/projekte" },
     },
+  },
+  projectsTeaser: {
+    intro: {
+      eyebrow: "Projekte",
+      title: "Eine Auswahl unserer Arbeiten",
+      subtitle:
+        "Wohnen, Gewerbe, Verwaltung, Bildung und Gesundheit — die gesamte Bandbreite der Architekturthemen.",
+    },
+    tiles: projects
+      .filter((project) => teaserSlugs.includes(project.slug))
+      .map((project) => ({
+        title: project.title,
+        meta:
+          [project.year, project.location].filter(Boolean).join(" · ") ||
+          undefined,
+        href: `/projekte/${project.slug}`,
+        material: project.material,
+        span: project.span,
+      })),
+    cta: { label: "Alle Projekte ansehen", href: "/projekte" },
   },
   services: {
     intro: {
@@ -53,8 +85,8 @@ export const home: HomeContent = {
     })),
   },
   stats: [
-    { value: 1992, label: "Bürogründung" },
     { value: 34, label: "Jahre Erfahrung" },
+    { value: projects.length, label: "Referenzprojekte" },
   ],
   process: {
     intro: {
@@ -90,19 +122,19 @@ export const home: HomeContent = {
       {
         quote:
           "Ein konkretes Zitat mit einem messbaren Ergebnis wirkt stärker als jedes Eigenlob. Dieser Platzhalter zeigt die ideale Länge.",
-        name: "Vorname Nachname",
+        name: "Platzhalter — Stimme 1",
         role: "Position, Unternehmen",
       },
       {
         quote:
           "Zwei bis drei Sätze, die ein echtes Projekt beschreiben: Ausgangslage, Zusammenarbeit und was sich danach verbessert hat.",
-        name: "Vorname Nachname",
+        name: "Platzhalter — Stimme 2",
         role: "Position, Unternehmen",
       },
       {
         quote:
           "Nur echte Stimmen mit echtem Namen und Einverständnis verwenden — anonyme Zitate schaden mehr, als sie nützen.",
-        name: "Vorname Nachname",
+        name: "Platzhalter — Stimme 3",
         role: "Position, Unternehmen",
       },
     ],

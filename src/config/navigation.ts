@@ -24,7 +24,9 @@ export interface NavigationConfig {
 }
 
 const mainNav: NavItem[] = [
+  { label: "Projekte", href: "/projekte" },
   { label: "Leistungen", href: "/leistungen" },
+  { label: "Energieberatung", href: "/energieberatung" },
   { label: "Über uns", href: "/ueber-uns" },
   { label: "Kontakt", href: "/kontakt" },
 ];

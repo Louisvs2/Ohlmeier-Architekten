@@ -1,7 +1,6 @@
-// Über-uns-Inhalte für Ohlmeier Architekten, recherchiert aus öffentlichen
-// Quellen (CLIENT.md §2, §5). Werte-Sektion bleibt bewusst allgemein
-// gehalten, bis der Kunde eigene Formulierungen liefert (CLIENT.md §6) —
-// keine erfundenen Alleinstellungsmerkmale.
+// Über-uns-Inhalte für Ohlmeier Architekten — Originaltext von der echten
+// "OA"-Seite (Philosophie-Zitat, "Das Architekturbüro"-Absatz,
+// Projekt-Schwerpunkte). Team kommt separat aus src/content/team.ts.
 
 import { Building2, Handshake, Users } from "lucide-react";
 
@@ -10,23 +9,25 @@ import type { Action, SectionIntro } from "@/types/content";
 
 interface AboutContent {
   hero: { eyebrow: string; title: string; subtitle: string };
-  values: { intro: SectionIntro; items: Feature[] };
+  intro: { intro: SectionIntro; items: Feature[] };
+  schwerpunkte: { intro: SectionIntro; items: string[] };
+  team: { intro: SectionIntro };
   cta: { title: string; subtitle: string; action: Action; note: string };
 }
 
 export const about: AboutContent = {
   hero: {
     eyebrow: "Über uns",
-    title: "Architektur aus Kassel, seit 1992",
+    title: "Bauen ist ein Prozess",
     subtitle:
-      "Ohlmeier Architekten plant und begleitet Bauvorhaben von der ersten Idee bis zur Übergabe — von Ein- und Zweifamilienhäusern über Büro- und Verwaltungsbauten bis zu Pflege- und Bildungseinrichtungen. Geführt von Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.",
+      "Unser Fundus ist die kraftvolle Ästhetik der Moderne – kritisch weiterentwickelt zu einem Handlungsprogramm, das mit wohlüberlegtem Einsatz gestalterischer Ideen den Ort, die Nutzung, das Budget und die Ökologie zu einem spannenden Raumerlebnis verdichtet.",
   },
-  values: {
+  intro: {
     intro: {
       eyebrow: "Das Büro",
-      title: "Was uns auszeichnet",
+      title: "Das Architekturbüro",
       subtitle:
-        "Verifizierte Fakten — die persönliche Haltung dazu ergänzt der Kunde in eigenen Worten.",
+        "Unser in Kassel ansässiges Büro wurde 1992 gegründet und verfügt über eine umfassende und kontinuierliche Erfahrung in der Planung und Bauleitung von Projekten in allen Leistungsphasen und Aufgabenbereichen der Architektur. Wir bieten Bauherren eine umfassende und verlässliche Betreuung und begleiten den gesamten Prozess von der ersten Skizze bis zum Projektabschluss. Durch die Zusammenarbeit mit beteiligten Fachdisziplinen entwickeln wir qualitätsvolle, nachhaltige und wirtschaftliche Lösungen für unterschiedliche Bauaufgaben.",
     },
     items: [
       {
@@ -48,6 +49,28 @@ export const about: AboutContent = {
           "Mitgliedschaft im Bund Deutscher Architektinnen und Architekten als Qualitäts- und Berufsstandard.",
       },
     ],
+  },
+  schwerpunkte: {
+    intro: {
+      eyebrow: "Schwerpunkte",
+      title:
+        "Unsere Projekte beinhalten die gesamte Bandbreite der Architekturthemen",
+    },
+    items: [
+      "Wohnen und Wohnsonderformen",
+      "Gewerbe und Technik",
+      "Verwaltung und Dienstleistung",
+      "Sanierung von denkmalgeschützten Bauten",
+      "Ruhender Verkehr",
+      "Gesundheit und Geriatrie",
+      "Städtische Freiräume",
+    ],
+  },
+  team: {
+    intro: {
+      eyebrow: "Team",
+      title: "Wer bei uns plant und baut",
+    },
   },
   cta: {
     title: "Lernen Sie uns kennen",

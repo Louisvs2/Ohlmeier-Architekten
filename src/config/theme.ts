@@ -7,7 +7,13 @@
  * `:root[data-look="…"]`; the fonts are wired in src/lib/fonts.ts. To rebrand
  * beyond a preset, edit the accent tokens for that look in globals.css.
  */
-export const looks = ["glass", "editorial", "minimal", "bold"] as const;
+export const looks = [
+  "glass",
+  "editorial",
+  "minimal",
+  "bold",
+  "structural",
+] as const;
 
 export type LookName = (typeof looks)[number];
 
@@ -20,7 +26,9 @@ export const lookDescriptions: Record<LookName, string> = {
   minimal:
     "Quiet & sharp — Inter throughout, monochrome ink accent, flat surfaces, tight corners. Gallery-like.",
   bold: "Vivid & playful — Sora, electric violet, strong glass, deep lift and a punchy magnetic CTA.",
+  structural:
+    "Architectural & confident — Space Grotesk, vivid orange, flat surfaces, sharp corners. No glass, no glow.",
 };
 
 /** The active look. Change this one line per client project. */
-export const activeLook: LookName = "glass";
+export const activeLook: LookName = "structural";

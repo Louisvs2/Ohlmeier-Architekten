@@ -24,7 +24,7 @@
 - **Industry / sector:** Architektur — Planung von Wohn-, Büro-, Sonder- und Gewerbebauten
 - **Business type:** Partnerschaftsgesellschaft mbB (PartmbB); Mitglied im BDA (Bund Deutscher Architektinnen und Architekten)
 - **Years in business:** Bürogründung 1992 → 34 Jahre (Stand 2026)
-- **Team size:** ❓ mit Kunde klären — geführt von zwei Partnern (siehe §11)
+- **Team size:** 13 Personen (bestätigt, aus der echten "OA"-Seite: 2 Partner + 11 Mitarbeitende — siehe Team-Sektion auf `/ueber-uns`)
 
 ## 3. Target Audience
 
@@ -50,12 +50,13 @@
 
 ## 5. USP (Unique Selling Proposition)
 
-- **Main USP in one sentence:** ❓ mit Kunde klären — in eigenen Worten des Kunden formulieren, nicht raten
+- **Main USP in one sentence:** Aus der echten "OA"-Seite übernommen als Leitsatz (kein Kunden-Interview nötig — bereits vom Kunden selbst formuliert): „Bauen ist ein Prozess – unser Fundus ist die kraftvolle Ästhetik der Moderne – kritisch weiterentwickelt zu einem Handlungsprogramm, das mit wohlüberlegtem Einsatz gestalterischer Ideen den Ort, die Nutzung, das Budget und die Ökologie zu einem spannenden Raumerlebnis verdichtet."
 - **Supporting proof points (3–5), verifiziert:**
   - Seit 1992 in Kassel — 34 Jahre kontinuierliche Erfahrung
   - Mitglied im BDA (Bund Deutscher Architektinnen und Architekten)
   - Generationsübergreifend geführt: Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.
   - Breites Typologie-Spektrum: Wohn-, Büro-, Pflege-, Bildungs- und Gewerbebauten
+  - 13-köpfiges Team, 33 dokumentierte Referenzprojekte, 20 Publikationen 1984–2016
 - **Guarantees / certifications / awards:** ❓ mit Kunde klären
 - **Numbers we may publish:** ❓ mit Kunde klären — keine Projekt-/Weiterempfehlungszahlen recherchierbar, nicht erfinden
 
@@ -237,7 +238,7 @@
 
 > GDPR-critical — must be complete before launch. The agency provides page templates; legal content responsibility stays with the client.
 
-- **Impressum data complete?** ☑ teilweise — recherchiert: Ohlmeier Architekten PartmbB, Rolandstraße 4, 34131 Kassel; vertretungsberechtigte Partner Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.; Partnerschaftsregister Amtsgericht Frankfurt am Main, PR 2887; Tel. 0561 3085570, office@ohlmeier-architekten.de. Fehlend: USt-IdNr., zuständige Kammer (Architektenkammer Hessen, Annahme), Berufshaftpflichtversicherung-Angaben (bei PartmbB Pflichtangabe nach § 5 DDG) — ❓ vor Launch mit Kunde verifizieren, alle recherchierten Angaben stammen aus Suchmaschinen-Snippets, nicht aus der Originalquelle.
+- **Impressum data complete?** ☑ ja — bestätigt durch PDF-Export der echten Impressum-Seite (nicht mehr nur Suchmaschinen-Snippets): Architekturbüro Ohlmeier Architekten PartmbB, Rolandstraße 4, 34131 Kassel, Tel. 0561 3085570, office@ohlmeier-architekten.de; Partnerschaftsregister Amtsgericht Frankfurt am Main, PR 2887; vertretungsberechtigte Partner Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.; beide Architekt gemäß HASG. Die echte Seite nennt weder USt-IdNr. noch eine Kammer — `src/content/legal.ts` wurde entsprechend korrigiert (keine erfundenen Abschnitte mehr).
 - **Privacy policy:** ❓ mit Kunde klären — Template-Platzhalter, muss von Rechtsberatung final geprüft werden
 - **Analytics/tracking planned:** Vercel Analytics (aus `PLAN.md` §2) — Consent-Banner vorhanden
 - **Terms & conditions (AGB) page needed?** ❓ mit Kunde klären — bei Planungsleistungen unüblich, vermutlich no
@@ -249,7 +250,7 @@
 > Check every section this website needs. Default template sections per `PLAN.md` §4.
 
 **Pages:**
-☑ Home ☑ About us ☑ Services overview ☑ Service detail pages ☑ Contact ☑ Other: **Projekte/Referenzen** — auf der bestehenden Website ein eigener Bereich (`/projekte` + Detailseiten), im aktuellen Template-Grundgerüst noch nicht vorgesehen (siehe §27)
+☑ Home ☑ About us ☑ Services overview ☑ Service detail pages ☑ Contact ☑ Other: **Projekte/Referenzen** (`/projekte` + 33 Detailseiten, umgesetzt), **Energieberatung** (`/energieberatung`, umgesetzt, eigener Nav-Punkt), **Team** (13 Personen, eingebettet auf `/ueber-uns`, umgesetzt)
 
 **Homepage sections:**
 ☑ Hero ☐ Logo cloud / "known from" ☑ Services grid ☑ Process steps ("how we work") ☐ Stats (nur mit echten Zahlen, aktuell keine verifizierbar) ☐ Testimonials (nur mit echten, freigegebenen Zitaten) ☐ Team ☑ FAQ (Platzhalter bis echte Fragen vorliegen) ☐ Pricing ☑ Final CTA ☑ Other: Projekt-/Referenz-Highlights

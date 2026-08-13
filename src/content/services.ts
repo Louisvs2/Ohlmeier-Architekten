@@ -1,13 +1,17 @@
-// Leistungen von Ohlmeier Architekten (CLIENT.md §4), recherchiert aus
-// öffentlichen Quellen — Feature-Texte sind branchenübliche Beschreibungen
-// des jeweiligen Leistungsbilds, keine wörtlichen Kundenzitate. FAQ-Inhalte
-// (Preise, Fristen) bleiben bewusst offen, bis echte Kundenfragen vorliegen
-// (CLIENT.md §23) — keine erfundenen Preisversprechen.
+// Leistungen von Ohlmeier Architekten — Originaltext von der "OA"-Seite der
+// echten Website ("Die Architektenleistungen"), zu vier Detailseiten
+// gebündelt. Energieberatung ist bewusst NICHT hier, sondern eine eigene
+// Seite (src/content/energieberatung.ts), da sie auf der echten Seite einen
+// eigenen Navigationspunkt hat. Die "Generalplanerleistungen" (Statik,
+// Gebäudetechnik, Bauphysik, Akustik, Lichtplanung, Vermessung,
+// Freiraumplanung) sind koordinierte Fachdisziplinen, keine eigenen
+// Ohlmeier-Leistungen — siehe `generalplanerleistungen` unten, wird auf der
+// Leistungen-Übersicht als unterstützende Liste angezeigt, nicht als
+// eigene Detailseite.
 
-import { Compass, HardHat, PenTool, type LucideIcon } from "lucide-react";
+import { Compass, Layers, type LucideIcon, PenTool, Ruler } from "lucide-react";
 
 import type { Feature } from "@/components/sections/features";
-import type { FaqItem } from "@/components/sections/faq";
 import type { SectionIntro } from "@/types/content";
 
 export interface ServiceDetail {
@@ -19,7 +23,6 @@ export interface ServiceDetail {
   hero: { title: string; subtitle: string };
   featuresIntro: SectionIntro;
   features: Feature[];
-  faq?: FaqItem[];
 }
 
 export const services: ServiceDetail[] = [
@@ -28,11 +31,11 @@ export const services: ServiceDetail[] = [
     icon: Compass,
     title: "Entwurfsplanung",
     excerpt:
-      "Von der ersten Idee zum genehmigungsfähigen Entwurf — Grundlagenermittlung, Vorplanung und Entwurf für Wohn-, Büro- und Sonderbauten.",
+      "Gebäude-Entwurfsplanung — aus Ort, Nutzung, Budget und Ökologie entsteht ein stimmiges räumliches Konzept.",
     hero: {
-      title: "Entwurfsplanung: aus Ihrer Idee wird ein tragfähiges Konzept",
+      title: "Entwurfsplanung",
       subtitle:
-        "Wir erfassen Ausgangslage, Nutzung und Budget und entwickeln daraus einen Entwurf, der Gestaltung, Funktion und Wirtschaftlichkeit zusammenbringt — abgestimmt mit den beteiligten Fachplanern.",
+        "Mit gezieltem Einsatz gestalterischer Mittel verbinden wir Ort, Nutzung, Budget und Ökologie zu einem qualitätsvollen und stimmigen räumlichen Konzept — der Ausgangspunkt für jedes Projekt.",
     },
     featuresIntro: {
       eyebrow: "Leistungsumfang",
@@ -40,37 +43,32 @@ export const services: ServiceDetail[] = [
     },
     features: [
       {
-        title: "Grundlagenermittlung",
+        title: "Gebäude Entwurfsplanung",
         description:
-          "Klärung von Aufgabenstellung, Rahmenbedingungen und Zielen als Basis für die weitere Planung.",
+          "Entwicklung eines tragfähigen Gestaltungskonzepts für Neubau- und Sanierungsvorhaben.",
       },
       {
-        title: "Vor- und Entwurfsplanung",
+        title: "Klare Gestaltung",
         description:
-          "Erarbeitung eines Planungskonzepts inklusive Kostenschätzung nach HOAI-Leistungsphasen 1–3.",
+          "Unsere Arbeiten zeichnen sich durch eine klare Gestaltung aus — kein Stil um seiner selbst willen, sondern ein Konzept, das aus Ort, Nutzung, Budget und Ökologie entsteht.",
       },
       {
         title: "Abstimmung mit Fachdisziplinen",
         description:
-          "Koordination mit Statik, Haustechnik und weiteren Fachplanern für ein stimmiges Gesamtkonzept.",
-      },
-      {
-        title: "Bauantrag",
-        description:
-          "Vorbereitung und Einreichung der Genehmigungsplanung bei der zuständigen Behörde.",
+          "Zusammenarbeit mit den beteiligten Fachdisziplinen für qualitätsvolle, nachhaltige und wirtschaftliche Lösungen.",
       },
     ],
   },
   {
-    slug: "ausfuehrungsplanung-ausschreibung",
+    slug: "ausfuehrungsplanung",
     icon: PenTool,
-    title: "Ausführungsplanung & Ausschreibung",
+    title: "Ausführungsplanung",
     excerpt:
-      "Detaillierte Ausführungsplanung und Ausschreibung — die Grundlage für eine reibungslose Vergabe an ausführende Firmen.",
+      "Gebäude-Ausführungsplanung mit verlässlicher Einhaltung von Qualitäts-, Termin- und Kostenzielen.",
     hero: {
-      title: "Ausführungsplanung & Ausschreibung: der Entwurf wird baubar",
+      title: "Ausführungsplanung",
       subtitle:
-        "Wir übersetzen den genehmigten Entwurf in eine detaillierte Ausführungsplanung, erstellen Leistungsverzeichnisse und begleiten die Vergabe an ausführende Firmen.",
+        "Wir begleiten den gesamten Prozess von der ersten Skizze bis zum Projektabschluss — mit effizienter, strukturierter Planung und klarer Kommunikation.",
     },
     featuresIntro: {
       eyebrow: "Leistungsumfang",
@@ -78,37 +76,32 @@ export const services: ServiceDetail[] = [
     },
     features: [
       {
-        title: "Ausführungsplanung",
+        title: "Gebäude Ausführungsplanung",
         description:
-          "Detailpläne mit allen für die Bauausführung notwendigen Angaben nach HOAI-Leistungsphase 5.",
+          "Detaillierte Planung als Grundlage für eine reibungslose Bauausführung.",
       },
       {
-        title: "Leistungsverzeichnisse",
+        title: "Strukturierte Planung",
         description:
-          "Vorbereitung der Vergabe mit prüfbaren, vollständigen Leistungsverzeichnissen.",
+          "Effiziente, strukturierte Planung und klare Kommunikation über den gesamten Bauprozess.",
       },
       {
-        title: "Ausschreibung & Vergabe",
+        title: "Qualitäts-, Termin- und Kostenziele",
         description:
-          "Einholen und Auswerten von Angeboten sowie Mitwirkung bei der Vergabe an ausführende Firmen.",
-      },
-      {
-        title: "Kostenkontrolle",
-        description:
-          "Fortlaufender Abgleich der Angebote und Vergaben mit der Kostenplanung.",
+          "Verlässliche Einhaltung der vereinbarten Ziele bis zum Projektabschluss.",
       },
     ],
   },
   {
-    slug: "objektueberwachung",
-    icon: HardHat,
-    title: "Objektüberwachung",
+    slug: "grundlagenplanung-projektstudien",
+    icon: Ruler,
+    title: "Grundlagenplanung & Projektstudien",
     excerpt:
-      "Bauleitung und Qualitätssicherung auf der Baustelle — von der Grundsteinlegung bis zur Übergabe.",
+      "Gutachten, Standortuntersuchungen sowie Projektstudien, Entwicklungs- und Programmplanungen als fundierte Basis für Ihr Vorhaben.",
     hero: {
-      title: "Objektüberwachung: Qualität auf der Baustelle sichern",
+      title: "Grundlagenplanung & Projektstudien",
       subtitle:
-        "Wir überwachen die Bauausführung auf Übereinstimmung mit Genehmigung, Ausführungsplanung und den anerkannten Regeln der Technik — bis zur mängelfreien Übergabe.",
+        "Bevor geplant wird, klären wir die Grundlagen: Standort, Machbarkeit und Programm — eine fundierte Basis für alle weiteren Entscheidungen.",
     },
     featuresIntro: {
       eyebrow: "Leistungsumfang",
@@ -116,34 +109,77 @@ export const services: ServiceDetail[] = [
     },
     features: [
       {
-        title: "Bauleitung vor Ort",
-        description:
-          "Regelmäßige Baustellenpräsenz und Koordination der ausführenden Gewerke.",
+        title: "Grundlagenplanungen",
+        description: "Gutachten und Standortuntersuchungen.",
       },
       {
-        title: "Terminüberwachung",
-        description:
-          "Abgleich des Baufortschritts mit dem vereinbarten Terminplan.",
+        title: "Projektstudien",
+        description: "Entwicklungs- und Programmplanungen für Ihr Bauvorhaben.",
       },
       {
-        title: "Qualitäts- und Kostenkontrolle",
+        title: "Städtebauliche Entwurfsplanung",
         description:
-          "Prüfung der Bauausführung und laufender Abgleich mit der Kostenplanung nach HOAI-Leistungsphase 8.",
+          "Konzepte, die das Gebäude in seinen städtebaulichen Kontext einordnen.",
+      },
+    ],
+  },
+  {
+    slug: "innenausbau-farbkonzepte",
+    icon: Layers,
+    title: "Innenausbau & Farbkonzepte",
+    excerpt:
+      "Planungen zum Innenausbau und Farbkonzepte — Raumerlebnis bis ins Detail.",
+    hero: {
+      title: "Innenausbau & Farbkonzepte",
+      subtitle:
+        "Mit wohlüberlegtem Einsatz gestalterischer Ideen verdichten wir Ort, Nutzung, Budget und Ökologie zu einem spannenden Raumerlebnis — bis in den Innenausbau hinein.",
+    },
+    featuresIntro: {
+      eyebrow: "Leistungsumfang",
+      title: "Was enthalten ist",
+    },
+    features: [
+      {
+        title: "Planungen zum Innenausbau",
+        description:
+          "Raumkonzepte, die Gestaltung und Nutzung konsequent zusammendenken.",
       },
       {
-        title: "Abnahme & Übergabe",
+        title: "Farbkonzepte",
         description:
-          "Organisation der Abnahme, Mängelfeststellung und -verfolgung bis zur Übergabe.",
+          "Abgestimmte Farb- und Materialkonzepte für ein stimmiges Gesamtbild.",
       },
     ],
   },
 ];
 
+/** Fachdisziplinen, die Ohlmeier Architekten koordiniert, aber nicht selbst
+ *  erbringt — auf der Leistungen-Übersicht als unterstützende Liste, keine
+ *  eigenen Detailseiten (Korrektheit: keine fremden Leistungen als eigene
+ *  ausweisen). */
+export const generalplanerleistungen = {
+  intro: {
+    eyebrow: "In Zusammenarbeit",
+    title: "Generalplanerleistungen",
+    subtitle:
+      "Durch die Zusammenarbeit mit beteiligten Fachdisziplinen entwickeln wir qualitätsvolle, nachhaltige und wirtschaftliche Lösungen.",
+  },
+  items: [
+    "Statik",
+    "Gebäudetechnik",
+    "Bauphysik",
+    "Akustik",
+    "Lichtplanung",
+    "Vermessung",
+    "Freiraumplanung",
+  ],
+};
+
 export const servicesPage = {
   hero: {
     title: "Leistungen im Überblick",
     subtitle:
-      "Von der ersten Idee bis zur Übergabe: Ohlmeier Architekten begleitet Ihr Bauvorhaben über alle Leistungsphasen — für Wohn-, Büro- und Sonderbauten.",
+      "Wir bieten Bauherren eine umfassende und verlässliche Betreuung und begleiten den gesamten Prozess von der ersten Skizze bis zum Projektabschluss.",
   },
   cta: {
     title: "Nicht sicher, welche Leistung Sie brauchen?",

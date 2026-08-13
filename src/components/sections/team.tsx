@@ -10,7 +10,9 @@ import type { SectionImage, SectionIntro } from "@/types/content";
 export interface TeamMember {
   name: string;
   role: string;
-  image: SectionImage;
+  /** Omit until a real photo is available — renders an initials avatar
+   *  instead of a fabricated stock photo (DESIGN.md §12). */
+  image?: SectionImage;
 }
 
 interface TeamGridProps {
@@ -20,8 +22,18 @@ interface TeamGridProps {
   className?: string;
 }
 
-// Real people are the strongest trust anchor (DESIGN.md §13) — photos are
-// required per member and must share one photographic style.
+function initials(name: string) {
+  return name
+    .split(" ")
+    .filter((part) => /^[A-ZÄÖÜ]/.test(part))
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2);
+}
+
+// Real people are the strongest trust anchor (DESIGN.md §13). Members
+// without a delivered photo get an initials avatar rather than a stock
+// photo standing in for a real person.
 export function TeamGrid({
   intro,
   members,
@@ -37,14 +49,22 @@ export function TeamGrid({
             {members.map((member) => (
               <li key={member.name}>
                 <FadeIn>
-                  <div className="relative aspect-square overflow-hidden rounded-xl">
-                    <Image
-                      src={member.image.src}
-                      alt={member.image.alt}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, 50vw"
-                      className="object-cover"
-                    />
+                  <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
+                    {member.image ? (
+                      <Image
+                        src={member.image.src}
+                        alt={member.image.alt}
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-brand">
+                        <span className="text-2xl font-semibold text-brand-foreground">
+                          {initials(member.name)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <h3 className="mt-4 text-base font-medium">{member.name}</h3>
                   <p className="text-sm text-muted-foreground">{member.role}</p>

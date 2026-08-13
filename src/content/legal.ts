@@ -18,35 +18,36 @@ export const impressum: LegalPageContent = {
   sections: [
     {
       title: "Angaben gemäß § 5 DDG",
-      paragraphs: [
-        "Ohlmeier Architekten PartmbB",
-        "Rolandstraße 4, 34131 Kassel",
-        "Vertreten durch: Dipl.-Ing. Hans-Georg Ohlmeier, Philipp Ohlmeier, M.Sc. (Partner)",
-      ],
+      paragraphs: ["Architekturbüro Ohlmeier Architekten PartmbB"],
     },
     {
       title: "Kontakt",
       paragraphs: [
-        "Telefon: +49 561 3085570",
+        "Rolandstraße 4",
+        "34131 Kassel",
+        "Telefon: 0561 3085570",
         "E-Mail: office@ohlmeier-architekten.de",
       ],
     },
     {
-      title: "Registereintrag",
+      title: "Rechtsform",
       paragraphs: [
-        "Eintragung im Partnerschaftsregister: Amtsgericht Frankfurt am Main, PR 2887. [Vor Veröffentlichung mit Originalquelle verifizieren — Angabe stammt aus einer Web-Recherche, nicht von der Originalseite.]",
+        "Ohlmeier Architekten ist eine Partnerschaft mit beschränkter Berufshaftung nach dem Partnerschaftsgesetz, eingetragen im Partnerschaftsregister des Amtsgerichts Frankfurt am Main unter der Nummer PR 2887.",
       ],
     },
     {
-      title: "Zuständige Kammer",
-      paragraphs: [
-        "[Vermutlich Architektenkammer Hessen — mit Kunde bestätigen und ggf. Berufsbezeichnung, Verleihungsstaat sowie Angaben zur Berufshaftpflichtversicherung gemäß § 5 DDG ergänzen.]",
-      ],
+      title: "Vertretungsberechtigte Partner",
+      paragraphs: ["Dipl.-Ing. Hans-Georg Ohlmeier", "Philipp Ohlmeier, M.Sc."],
     },
     {
-      title: "Umsatzsteuer-ID",
+      title: "Verantwortlich für redaktionelle Inhalte",
+      paragraphs: ["Dipl.-Ing. Hans-Georg Ohlmeier", "Philipp Ohlmeier, M.Sc."],
+    },
+    {
+      title: "Berufsbezeichnungen",
       paragraphs: [
-        "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr. — mit Kunde klären; falls nicht vorhanden, Abschnitt entfernen.]",
+        "Dipl.-Ing. Hans-Georg Ohlmeier — Architekt gemäß dem Hessischen Architekten- und Stadtplanergesetz (HASG)",
+        "Philipp Ohlmeier, M.Sc. — Architekt gemäß dem Hessischen Architekten- und Stadtplanergesetz (HASG)",
       ],
     },
     {

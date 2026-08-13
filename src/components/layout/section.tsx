@@ -10,6 +10,7 @@ const sectionVariants = cva("py-20 sm:py-28 lg:py-32", {
     background: {
       default: "bg-background",
       muted: "bg-muted",
+      brand: "bg-brand text-brand-foreground",
     },
   },
   defaultVariants: {
