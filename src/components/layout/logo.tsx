@@ -14,7 +14,7 @@ export function Logo({ className }: { className?: string }) {
       )}
     >
       <span className="relative z-10">O</span>
-      <span className="relative z-0 -ml-3">A</span>
+      <span className="relative z-0 -ml-[0.22em]">A</span>
     </span>
   );
 }

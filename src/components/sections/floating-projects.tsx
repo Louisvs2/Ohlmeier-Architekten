@@ -10,7 +10,7 @@ import {
   materialPhotos,
   materialTreatments,
   type MosaicMaterial,
-} from "./project-mosaic";
+} from "@/lib/materials";
 
 // A playful alternative to ProjectMosaic's calm editorial grid: every
 // project tile drifts slowly through the space, pushes away from the
@@ -55,13 +55,15 @@ function seededRandom(seed: number) {
 }
 
 const COLS = 6;
-const REPEL_RADIUS = 190;
-const REPEL_STRENGTH = 74;
-const EASE = 0.14;
+const REPEL_RADIUS = 230;
+const REPEL_STRENGTH = 60;
+const NEIGHBOR_RADIUS = 220;
+const EASE = 0.09;
 const DRAG_THRESHOLD = 4;
 
 interface TileLayout extends FloatingTile {
-  size: number;
+  width: number;
+  height: number;
   leftPct: number;
   topPct: number;
   floatDx: number;
@@ -73,10 +75,11 @@ interface TileLayout extends FloatingTile {
   rotC: number;
 }
 
-// Continuous random size range rather than a few fixed steps, so tiles
-// read as genuinely, unpredictably varied instead of clustering into
-// visible "small/medium/large" groups. Tiles with a real photo get a
-// higher floor since they have the best content to show off.
+// Width and height are drawn independently (not from one "size" applied to
+// both), so tiles land on every kind of rectangle — tall portraits, wide
+// landscapes, the occasional square — instead of always being square.
+// Tiles with a real photo get a higher floor on both axes since they have
+// the best content to show off.
 const SIZE_MIN = 84;
 const SIZE_MAX = 264;
 const PHOTO_SIZE_MIN = 150;
@@ -93,7 +96,8 @@ function computeLayout(tiles: FloatingTile[]): TileLayout[] {
     const sizeMin = tile.image ? PHOTO_SIZE_MIN : SIZE_MIN;
     return {
       ...tile,
-      size: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
+      width: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
+      height: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
       leftPct: col * cellW + cellW / 2 + (rand() - 0.5) * cellW * 0.7,
       topPct: row * cellH + cellH / 2 + (rand() - 0.5) * cellH * 0.7,
       floatDx: 10 + rand() * 16,
@@ -163,6 +167,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
   const dragOriginRef = useRef<{ x: number; y: number } | null>(null);
   const dragMovedRef = useRef(false);
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
+  const neighborsRef = useRef<{ j: number; weight: number }[][]>([]);
 
   useEffect(() => {
     if (reducedMotion !== false) return;
@@ -176,6 +181,27 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
         st.basePxX = (tile.leftPct / 100) * rect.width;
         st.basePxY = (tile.topPct / 100) * rect.height;
       });
+      // A tile's neighbours (by base position) so the water-repel below
+      // spreads across a connected patch of the field instead of each tile
+      // reacting to the pointer in isolation — recomputed on resize since
+      // base positions shift with the container.
+      const lists: { j: number; weight: number }[][] = layout.map(() => []);
+      for (let i = 0; i < layout.length; i++) {
+        for (let j = i + 1; j < layout.length; j++) {
+          const dx =
+            statesRef.current[i].basePxX - statesRef.current[j].basePxX;
+          const dy =
+            statesRef.current[i].basePxY - statesRef.current[j].basePxY;
+          const dist = Math.hypot(dx, dy);
+          if (dist < NEIGHBOR_RADIUS) {
+            const t = 1 - dist / NEIGHBOR_RADIUS;
+            const weight = t * t;
+            lists[i].push({ j, weight });
+            lists[j].push({ j: i, weight });
+          }
+        }
+      }
+      neighborsRef.current = lists;
     }
     measure();
     const ro = new ResizeObserver(measure);
@@ -221,29 +247,59 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
     window.addEventListener("pointerup", endDrag);
     window.addEventListener("pointercancel", endDrag);
 
+    const rawX = new Array<number>(layout.length).fill(0);
+    const rawY = new Array<number>(layout.length).fill(0);
+
     let raf = requestAnimationFrame(tick);
     function tick() {
       const pointer = pointerRef.current;
+
+      // Pass 1: how strongly the pointer alone displaces each tile — a soft
+      // (squared) falloff so it fades gently rather than cutting off sharply.
       layout.forEach((tile, i) => {
         const st = statesRef.current[i];
-        if (!st.dragging) {
-          if (pointer) {
-            const dx = st.basePxX + st.settledX - pointer.x;
-            const dy = st.basePxY + st.settledY - pointer.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < REPEL_RADIUS && dist > 0.001) {
-              const strength = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
-              st.targetRepelX = (dx / dist) * strength;
-              st.targetRepelY = (dy / dist) * strength;
-            } else {
-              st.targetRepelX = 0;
-              st.targetRepelY = 0;
-            }
-          } else {
-            st.targetRepelX = 0;
-            st.targetRepelY = 0;
-          }
+        if (st.dragging || !pointer) {
+          rawX[i] = 0;
+          rawY[i] = 0;
+          return;
         }
+        const dx = st.basePxX + st.settledX - pointer.x;
+        const dy = st.basePxY + st.settledY - pointer.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < REPEL_RADIUS && dist > 0.001) {
+          const t = 1 - dist / REPEL_RADIUS;
+          const strength = t * t * REPEL_STRENGTH;
+          rawX[i] = (dx / dist) * strength;
+          rawY[i] = (dy / dist) * strength;
+        } else {
+          rawX[i] = 0;
+          rawY[i] = 0;
+        }
+      });
+
+      // Pass 2: blend each tile's own pull with its neighbours' — this is
+      // what turns "each tile dodges the cursor" into "the whole patch of
+      // tiles moves together like a sheet of water being brushed through".
+      layout.forEach((tile, i) => {
+        const st = statesRef.current[i];
+        if (st.dragging) return;
+        const neighbors = neighborsRef.current[i] ?? [];
+        let sumX = rawX[i];
+        let sumY = rawY[i];
+        let totalWeight = 1;
+        for (const { j, weight } of neighbors) {
+          sumX += rawX[j] * weight;
+          sumY += rawY[j] * weight;
+          totalWeight += weight;
+        }
+        st.targetRepelX = sumX / totalWeight;
+        st.targetRepelY = sumY / totalWeight;
+      });
+
+      // Pass 3: ease everyone toward their (blended) target and paint.
+      // The slow EASE is what keeps this calm instead of twitchy.
+      layout.forEach((tile, i) => {
+        const st = statesRef.current[i];
         st.repelX += (st.targetRepelX - st.repelX) * EASE;
         st.repelY += (st.targetRepelY - st.repelY) * EASE;
 
@@ -321,8 +377,8 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
           style={{
             top: `${tile.topPct}%`,
             left: `${tile.leftPct}%`,
-            width: tile.size,
-            height: tile.size,
+            width: tile.width,
+            height: tile.height,
             transform: "translate(-50%, -50%)",
           }}
         >

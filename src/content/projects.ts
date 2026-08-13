@@ -5,13 +5,10 @@
 // nicht erfunden (CLIENT.md, „wartet auf Kundendaten"). `category` ist nur
 // gesetzt, wo der Projektname sie eindeutig nahelegt (Wohnhaus/Wohnen/
 // Mehrfamilienhaus → Wohnen, Schule → Öffentlich) — alles andere bleibt
-// unkategorisiert statt geraten. `material`/`span` steuern nur die
-// Mosaik-Kachel-Optik (ProjectMosaic), keine inhaltliche Aussage.
+// unkategorisiert statt geraten. `material` steuert nur die Kachel-Optik
+// im schwebenden Projekte-Feld (FloatingProjects), keine inhaltliche Aussage.
 
-import type {
-  MosaicMaterial,
-  MosaicSpan,
-} from "@/components/sections/project-mosaic";
+import type { MosaicMaterial } from "@/lib/materials";
 import type { SectionImage } from "@/types/content";
 
 export interface ProjectDetail {
@@ -21,7 +18,6 @@ export interface ProjectDetail {
   year?: number;
   location?: string;
   material: MosaicMaterial;
-  span: MosaicSpan;
   /** Real teaser/hero photo — only set for projects whose photography was
    *  recovered from the reference PDFs (CLIENT.md §18). */
   image?: SectionImage;
@@ -36,13 +32,12 @@ const materials: MosaicMaterial[] = [
   "rust",
   "steel",
 ];
-const spans: MosaicSpan[] = ["sm", "sm", "sm", "md", "sm", "sm", "lg", "sm"];
 
 function cycle<T>(arr: T[], i: number): T {
   return arr[i % arr.length];
 }
 
-const rawProjects: Omit<ProjectDetail, "material" | "span">[] = [
+const rawProjects: Omit<ProjectDetail, "material">[] = [
   {
     slug: "buero-und-geschaeftshaus-lutherplatz",
     title: "Büro- und Geschäftshaus am Lutherplatz",
@@ -247,7 +242,6 @@ const rawProjects: Omit<ProjectDetail, "material" | "span">[] = [
 export const projects: ProjectDetail[] = rawProjects.map((project, i) => ({
   ...project,
   material: cycle(materials, i),
-  span: cycle(spans, i),
 }));
 
 export const projectsPage = {

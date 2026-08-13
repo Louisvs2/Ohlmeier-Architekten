@@ -6,7 +6,7 @@
 
 import type { Service } from "@/components/sections/features";
 import type { FaqItem } from "@/components/sections/faq";
-import type { MosaicTile } from "@/components/sections/project-mosaic";
+import type { FloatingTile } from "@/components/sections/floating-projects";
 import type { ProcessStep } from "@/components/sections/process";
 import type { Stat } from "@/components/sections/stats";
 import type { Testimonial } from "@/components/shared/testimonial-card";
@@ -22,7 +22,7 @@ interface HomeContent {
     actions: { primary: Action; secondary: Action };
   };
   services: { intro: SectionIntro; items: Service[] };
-  projectsTeaser: { intro: SectionIntro; tiles: MosaicTile[]; cta: Action };
+  projectsTeaser: { intro: SectionIntro; tiles: FloatingTile[]; cta: Action };
   stats: Stat[];
   process: { intro: SectionIntro; steps: ProcessStep[] };
   testimonials: { intro: SectionIntro; items: Testimonial[] };
@@ -66,7 +66,6 @@ export const home: HomeContent = {
           undefined,
         href: `/projekte/${project.slug}`,
         material: project.material,
-        span: project.span,
         image: project.image,
       })),
     cta: { label: "Alle Projekte ansehen", href: "/projekte" },

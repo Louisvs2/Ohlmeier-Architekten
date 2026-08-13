@@ -1,14 +1,16 @@
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
+import { Section } from "@/components/layout/section";
 import { CTA } from "@/components/sections/cta";
 import { FAQ } from "@/components/sections/faq";
 import { ServiceCards } from "@/components/sections/features";
+import { FloatingProjects } from "@/components/sections/floating-projects";
 import { HeroEditorial } from "@/components/sections/hero";
 import { ProcessSteps } from "@/components/sections/process";
-import { ProjectMosaic } from "@/components/sections/project-mosaic";
 import { Stats } from "@/components/sections/stats";
 import { TestimonialsGrid } from "@/components/sections/testimonials";
+import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { home } from "@/content/home";
 
@@ -18,19 +20,21 @@ export default function HomePage() {
   return (
     <>
       <HeroEditorial {...home.hero} />
-      <ProjectMosaic
-        intro={home.projectsTeaser.intro}
-        tiles={home.projectsTeaser.tiles}
-        background="muted"
-        wide
-      />
-      <Container className="-mt-10 mb-20 flex justify-center sm:-mt-16 sm:mb-28">
-        <Button asChild size="lg" variant="outline">
-          <Link href={home.projectsTeaser.cta.href}>
-            {home.projectsTeaser.cta.label}
-          </Link>
-        </Button>
-      </Container>
+      <Section background="muted" className="overflow-hidden">
+        <Container>
+          <SectionHeading {...home.projectsTeaser.intro} />
+        </Container>
+        <div className="mt-14 px-2 sm:mt-20 sm:px-4">
+          <FloatingProjects tiles={home.projectsTeaser.tiles} />
+        </div>
+        <Container className="mt-10 flex justify-center sm:mt-16">
+          <Button asChild size="lg" variant="outline">
+            <Link href={home.projectsTeaser.cta.href}>
+              {home.projectsTeaser.cta.label}
+            </Link>
+          </Button>
+        </Container>
+      </Section>
       <ServiceCards intro={home.services.intro} items={home.services.items} />
       <Stats items={home.stats} background="muted" />
       <ProcessSteps intro={home.process.intro} steps={home.process.steps} />

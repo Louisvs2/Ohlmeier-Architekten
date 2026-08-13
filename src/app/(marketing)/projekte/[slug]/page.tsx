@@ -6,10 +6,7 @@ import { Section } from "@/components/layout/section";
 import { CTA } from "@/components/sections/cta";
 import { Gallery } from "@/components/sections/gallery";
 import { HeroStatement } from "@/components/sections/hero";
-import {
-  materialPhotos,
-  materialTreatments,
-} from "@/components/sections/project-mosaic";
+import { materialPhotos, materialTreatments } from "@/lib/materials";
 import { projects, projectsPage } from "@/content/projects";
 import { createMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
