@@ -10,7 +10,7 @@ import { siteConfig } from "@/config/site";
 // and social profiles (rendered only when configured).
 export function Footer() {
   return (
-    <footer className="border-t">
+    <footer className="border-t-2 border-foreground/10">
       <Container className="py-16 lg:py-20">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-xs">

@@ -35,7 +35,13 @@ export function SectionHeading({
       {...props}
     >
       {eyebrow && (
-        <p className="mb-4 text-xs font-semibold tracking-wider text-brand-strong uppercase">
+        <p
+          className={cn(
+            "mb-4 flex items-center gap-2 text-xs font-semibold tracking-wider text-brand-strong uppercase",
+            align === "center" && "justify-center",
+          )}
+        >
+          <span aria-hidden className="inline-block size-2 bg-brand" />
           {eyebrow}
         </p>
       )}

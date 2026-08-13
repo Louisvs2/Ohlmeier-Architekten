@@ -38,7 +38,7 @@ export function HeroEyebrow({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-sm font-medium shadow-sm backdrop-blur-[var(--glass-blur)]",
+        "inline-flex items-center gap-2 rounded-lg border px-3.5 py-1 text-sm font-medium shadow-sm backdrop-blur-[var(--glass-blur)]",
         tone === "light"
           ? "border-white/20 bg-white/5 text-white/80"
           : "border-border/60 bg-background/50 text-muted-foreground",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
@@ -23,10 +23,11 @@ import {
 // by `magnetic.tsx`/`spotlight-card.tsx` elsewhere in this codebase, and is
 // what makes 30+ simultaneously-animated tiles stay smooth.
 //
-// prefers-reduced-motion drops straight to a plain, static grid of real
-// <a href> tiles — nothing here is the only way to reach a project, and
-// nothing here is required for the tiles to be crawlable or keyboard-
-// reachable (every tile is a real anchor throughout).
+// Always renders this same tile field (never swaps to a different DOM tree
+// for prefers-reduced-motion — that used to cause a visible "pop" on every
+// load while the media query resolved). Reduced-motion users get the idle
+// CSS drift killed for free by the global stylesheet rule, and the JS
+// water-repel is skipped below; dragging still works either way.
 
 export type { MosaicMaterial };
 
@@ -141,20 +142,26 @@ function createState(): TileState {
   };
 }
 
-function useReducedMotionQuery() {
-  const [reduced, setReduced] = useState<boolean | null>(null);
+// A ref (not state) on purpose: this only gates the JS water-repel inside
+// the rAF loop below, so flipping it never triggers a re-render or swaps
+// out the tile tree — it just quietly stops nudging tiles toward the
+// pointer for users who asked for less motion.
+function useReducedMotionRef() {
+  const reducedRef = useRef(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    reducedRef.current = mq.matches;
+    const handler = (e: MediaQueryListEvent) => {
+      reducedRef.current = e.matches;
+    };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
-  return reduced;
+  return reducedRef;
 }
 
 export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
-  const reducedMotion = useReducedMotionQuery();
+  const reducedMotionRef = useReducedMotionRef();
   const containerRef = useRef<HTMLDivElement>(null);
   const tileElRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const layout = useMemo(() => computeLayout(tiles), [tiles]);
@@ -170,7 +177,6 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
   const neighborsRef = useRef<{ j: number; weight: number }[][]>([]);
 
   useEffect(() => {
-    if (reducedMotion !== false) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -258,7 +264,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
       // (squared) falloff so it fades gently rather than cutting off sharply.
       layout.forEach((tile, i) => {
         const st = statesRef.current[i];
-        if (st.dragging || !pointer) {
+        if (st.dragging || !pointer || reducedMotionRef.current) {
           rawX[i] = 0;
           rawY[i] = 0;
           return;
@@ -321,46 +327,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
       window.removeEventListener("pointerup", endDrag);
       window.removeEventListener("pointercancel", endDrag);
     };
-  }, [reducedMotion, layout]);
-
-  if (reducedMotion !== false) {
-    return (
-      <ul
-        className={cn(
-          "grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4",
-          className,
-        )}
-      >
-        {tiles.map((tile) => {
-          const photo = tile.image ?? materialPhotos[tile.material];
-          return (
-            <li key={tile.href}>
-              <a
-                href={tile.href}
-                className={cn(
-                  "relative block aspect-square overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                  !photo && materialTreatments[tile.material],
-                )}
-              >
-                {photo && (
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, 50vw"
-                    className="object-cover"
-                  />
-                )}
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-sm font-medium text-white">
-                  {tile.title}
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
+  }, [layout, reducedMotionRef]);
 
   const rows = Math.max(1, Math.ceil(tiles.length / COLS));
 
