@@ -63,7 +63,7 @@ export default function EnergieberatungPage() {
           </div>
         </Container>
       </Section>
-      <CTA {...energieberatung.cta} background="muted" />
+      <CTA {...energieberatung.cta} background="brand" />
     </>
   );
 }

@@ -40,7 +40,7 @@ export default function HomePage() {
         background="muted"
       />
       <FAQ intro={home.faq.intro} items={home.faq.items} />
-      <CTA {...home.cta} background="muted" />
+      <CTA {...home.cta} background="brand" />
     </>
   );
 }

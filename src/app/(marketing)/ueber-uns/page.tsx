@@ -40,7 +40,7 @@ export default function UeberUnsPage() {
         </Container>
       </Section>
       <TeamGrid intro={about.team.intro} members={team} background="muted" />
-      <CTA {...about.cta} />
+      <CTA {...about.cta} background="brand" />
     </>
   );
 }

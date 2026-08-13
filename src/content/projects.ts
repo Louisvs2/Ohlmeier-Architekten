@@ -12,6 +12,7 @@ import type {
   MosaicMaterial,
   MosaicSpan,
 } from "@/components/sections/project-mosaic";
+import type { SectionImage } from "@/types/content";
 
 export interface ProjectDetail {
   slug: string;
@@ -21,6 +22,11 @@ export interface ProjectDetail {
   location?: string;
   material: MosaicMaterial;
   span: MosaicSpan;
+  /** Real teaser/hero photo — only set for projects whose photography was
+   *  recovered from the reference PDFs (CLIENT.md §18). */
+  image?: SectionImage;
+  /** Full photo set for the project detail page. */
+  gallery?: SectionImage[];
 }
 
 const materials: MosaicMaterial[] = [
@@ -57,6 +63,32 @@ const rawProjects: Omit<ProjectDetail, "material" | "span">[] = [
     category: "Wohnen",
     year: 2007,
     location: "Kassel",
+    image: {
+      src: "/images/projects/wohnhaus-eichenbergstrasse/hero.jpg",
+      alt: "Wohnhaus Eichenbergstraße, Kassel — Außenansicht",
+    },
+    gallery: [
+      {
+        src: "/images/projects/wohnhaus-eichenbergstrasse/hero.jpg",
+        alt: "Wohnhaus Eichenbergstraße, Straßenansicht",
+      },
+      {
+        src: "/images/projects/wohnhaus-eichenbergstrasse/01.jpg",
+        alt: "Wohnhaus Eichenbergstraße, Balkon und Terrasse",
+      },
+      {
+        src: "/images/projects/wohnhaus-eichenbergstrasse/02.jpg",
+        alt: "Wohnhaus Eichenbergstraße, Eckansicht",
+      },
+      {
+        src: "/images/projects/wohnhaus-eichenbergstrasse/03.jpg",
+        alt: "Wohnhaus Eichenbergstraße, Gartenansicht",
+      },
+      {
+        src: "/images/projects/wohnhaus-eichenbergstrasse/04.jpg",
+        alt: "Wohnhaus Eichenbergstraße, Eingangsseite",
+      },
+    ],
   },
   {
     slug: "henschel-schule-kassel",
@@ -81,6 +113,40 @@ const rawProjects: Omit<ProjectDetail, "material" | "span">[] = [
     title: "Bürogebäude Wilhelmshöher-Allee",
     year: 2010,
     location: "Kassel",
+    image: {
+      src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/hero.jpg",
+      alt: "Bürogebäude Wilhelmshöher-Allee, Kassel — Außenansicht",
+    },
+    gallery: [
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/hero.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Eckansicht",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/01.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Fassadendetail",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/02.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Treppenhaus",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/03.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Fassade",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/04.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Detailansicht",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/05.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Straßenansicht",
+      },
+      {
+        src: "/images/projects/buerogebaeude-wilhelmshoeher-allee/06.jpg",
+        alt: "Bürogebäude Wilhelmshöher-Allee, Gesamtansicht",
+      },
+    ],
   },
   {
     slug: "wohnhaus-seebergstrasse",
@@ -97,6 +163,32 @@ const rawProjects: Omit<ProjectDetail, "material" | "span">[] = [
     title: "Praxis- und Bürohaus Germania",
     year: 2016,
     location: "Kassel",
+    image: {
+      src: "/images/projects/praxis-und-buerohaus-germania/hero.jpg",
+      alt: "Praxis- und Bürohaus Germania, Kassel — Außenansicht",
+    },
+    gallery: [
+      {
+        src: "/images/projects/praxis-und-buerohaus-germania/hero.jpg",
+        alt: "Praxis- und Bürohaus Germania, Straßenansicht",
+      },
+      {
+        src: "/images/projects/praxis-und-buerohaus-germania/01.jpg",
+        alt: "Praxis- und Bürohaus Germania, Balkone",
+      },
+      {
+        src: "/images/projects/praxis-und-buerohaus-germania/02.jpg",
+        alt: "Praxis- und Bürohaus Germania, Eckansicht",
+      },
+      {
+        src: "/images/projects/praxis-und-buerohaus-germania/03.jpg",
+        alt: "Praxis- und Bürohaus Germania, Detailansicht",
+      },
+      {
+        src: "/images/projects/praxis-und-buerohaus-germania/04.jpg",
+        alt: "Praxis- und Bürohaus Germania, Gesamtansicht",
+      },
+    ],
   },
   {
     slug: "buero-und-geschaeftshaus-friedrich-ebert",

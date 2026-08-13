@@ -1,27 +1,43 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { useRouter } from "next/navigation";
-import { LazyMotion, domMax, m, useReducedMotion } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
+import type { SectionImage } from "@/types/content";
 
-import { materialTreatments, type MosaicMaterial } from "./project-mosaic";
+import {
+  materialPhotos,
+  materialTreatments,
+  type MosaicMaterial,
+} from "./project-mosaic";
 
 // A playful alternative to ProjectMosaic's calm editorial grid: every
-// project tile drifts slowly through the space and can be dragged around
-// with the mouse or a finger. Positions are seeded (not Math.random()) so
-// server and client render the same scattered layout — no hydration
-// mismatch, no "mounted" gate needed. Real <a href> tiles throughout, so
-// links stay crawlable and keyboard/Enter-activatable even though pointer
-// drags are intercepted. prefers-reduced-motion drops straight to a plain,
-// static grid — nothing here is the only way to reach a project.
+// project tile drifts slowly through the space, pushes away from the
+// pointer like water when you swipe through, and can be grabbed and shoved
+// around. Deliberately built WITHOUT a motion library — the idle drift is a
+// plain CSS animation (compositor-only, free), and the water-repel + drag
+// are driven by a single shared requestAnimationFrame loop that writes
+// transforms straight to the DOM via refs (no React re-renders per frame).
+// This mirrors the hand-rolled, direct-style-mutation pattern already used
+// by `magnetic.tsx`/`spotlight-card.tsx` elsewhere in this codebase, and is
+// what makes 30+ simultaneously-animated tiles stay smooth.
+//
+// prefers-reduced-motion drops straight to a plain, static grid of real
+// <a href> tiles — nothing here is the only way to reach a project, and
+// nothing here is required for the tiles to be crawlable or keyboard-
+// reachable (every tile is a real anchor throughout).
+
+export type { MosaicMaterial };
 
 export interface FloatingTile {
   title: string;
   meta?: string;
   href: string;
   material: MosaicMaterial;
+  /** A real project photo, when available — takes priority over the
+   *  material texture treatment. */
+  image?: SectionImage;
 }
 
 interface FloatingProjectsProps {
@@ -39,119 +55,222 @@ function seededRandom(seed: number) {
 }
 
 const COLS = 6;
+const REPEL_RADIUS = 190;
+const REPEL_STRENGTH = 74;
+const EASE = 0.14;
+const DRAG_THRESHOLD = 4;
 
-function useLayout(tiles: FloatingTile[]) {
-  return useMemo(() => {
-    const rows = Math.max(1, Math.ceil(tiles.length / COLS));
-    const cellW = 100 / COLS;
-    const cellH = 100 / rows;
-    return {
-      rows,
-      items: tiles.map((tile, i) => {
-        const rand = seededRandom(i * 97 + 13);
-        const col = i % COLS;
-        const row = Math.floor(i / COLS);
-        return {
-          ...tile,
-          size: 132 + Math.round(rand() * 70),
-          leftPct: col * cellW + cellW / 2 + (rand() - 0.5) * cellW * 0.7,
-          topPct: row * cellH + cellH / 2 + (rand() - 0.5) * cellH * 0.7,
-          rotate: Math.round((rand() - 0.5) * 16),
-          duration: 9 + rand() * 7,
-          delay: rand() * 4,
-          driftX: 10 + rand() * 14,
-          driftY: 14 + rand() * 16,
-        };
-      }),
-    };
-  }, [tiles]);
+interface TileLayout extends FloatingTile {
+  size: number;
+  leftPct: number;
+  topPct: number;
+  floatDx: number;
+  floatDy: number;
+  duration: number;
+  delay: number;
+  rotA: number;
+  rotB: number;
+  rotC: number;
 }
 
-function FloatingTile({
-  tile,
-  containerRef,
-}: {
-  tile: ReturnType<typeof useLayout>["items"][number];
-  containerRef: React.RefObject<HTMLDivElement | null>;
-}) {
-  // Framer's `drag` gesture swallows native click events unreliably, so
-  // navigation goes through its own `onTap` gesture (which already
-  // disambiguates a tap from a drag) instead of onClick. `pointerActiveRef`
-  // then tells onClick whether *this* click followed a pointer gesture
-  // (already handled by onTap → suppress the native href navigation) or
-  // came from the keyboard (Enter/Space never fires onPointerDown → let the
-  // native anchor navigation run, so keyboard users keep working).
-  const pointerActiveRef = useRef(false);
-  const router = useRouter();
+function computeLayout(tiles: FloatingTile[]): TileLayout[] {
+  const rows = Math.max(1, Math.ceil(tiles.length / COLS));
+  const cellW = 100 / COLS;
+  const cellH = 100 / rows;
+  // Small / medium / large / feature — a much wider spread than a single
+  // narrow range, so the field reads as genuinely varied. Tiles with a real
+  // photo are biased toward the bigger steps since they have the best
+  // content to show off.
+  const sizeSteps = [108, 148, 196, 248];
 
-  return (
-    <div
-      className="absolute"
-      style={{
-        top: `${tile.topPct}%`,
-        left: `${tile.leftPct}%`,
-        width: tile.size,
-        height: tile.size,
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <m.div
-        className="h-full w-full"
-        animate={{
-          x: [0, tile.driftX, -tile.driftX * 0.6, 0],
-          y: [0, -tile.driftY, tile.driftY * 0.5, 0],
-          rotate: [tile.rotate, tile.rotate + 4, tile.rotate - 3, tile.rotate],
-        }}
-        transition={{
-          duration: tile.duration,
-          delay: tile.delay,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <m.a
-          href={tile.href}
-          drag
-          dragConstraints={containerRef}
-          dragElastic={0.2}
-          dragMomentum
-          whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing" }}
-          style={{ touchAction: "none" }}
-          onPointerDown={() => {
-            pointerActiveRef.current = true;
-          }}
-          onTap={() => {
-            router.push(tile.href);
-          }}
-          onClick={(e) => {
-            if (pointerActiveRef.current) e.preventDefault();
-            pointerActiveRef.current = false;
-          }}
-          className="group relative block h-full w-full cursor-grab overflow-hidden shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-        >
-          <div
-            className={cn(
-              "absolute inset-0",
-              materialTreatments[tile.material],
-            )}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
-            <p className="text-sm font-medium text-white">{tile.title}</p>
-            {tile.meta && <p className="text-xs text-white/70">{tile.meta}</p>}
-          </div>
-        </m.a>
-      </m.div>
-    </div>
-  );
+  return tiles.map((tile, i) => {
+    const rand = seededRandom(i * 97 + 13);
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const roll = rand();
+    let sizeIndex: number;
+    if (tile.image) {
+      sizeIndex = roll < 0.55 ? 2 : 3;
+    } else {
+      sizeIndex = roll < 0.4 ? 0 : roll < 0.75 ? 1 : roll < 0.93 ? 2 : 3;
+    }
+    return {
+      ...tile,
+      size: sizeSteps[sizeIndex] + Math.round(rand() * 24),
+      leftPct: col * cellW + cellW / 2 + (rand() - 0.5) * cellW * 0.7,
+      topPct: row * cellH + cellH / 2 + (rand() - 0.5) * cellH * 0.7,
+      floatDx: 10 + rand() * 16,
+      floatDy: 14 + rand() * 18,
+      duration: 9 + rand() * 7,
+      delay: rand() * 4,
+      rotA: Math.round((rand() - 0.5) * 14),
+      rotB: Math.round((rand() - 0.5) * 14),
+      rotC: Math.round((rand() - 0.5) * 14),
+    };
+  });
+}
+
+interface TileState {
+  basePxX: number;
+  basePxY: number;
+  settledX: number;
+  settledY: number;
+  repelX: number;
+  repelY: number;
+  targetRepelX: number;
+  targetRepelY: number;
+  dragX: number;
+  dragY: number;
+  dragging: boolean;
+}
+
+function createState(): TileState {
+  return {
+    basePxX: 0,
+    basePxY: 0,
+    settledX: 0,
+    settledY: 0,
+    repelX: 0,
+    repelY: 0,
+    targetRepelX: 0,
+    targetRepelY: 0,
+    dragX: 0,
+    dragY: 0,
+    dragging: false,
+  };
+}
+
+function useReducedMotionQuery() {
+  const [reduced, setReduced] = useState<boolean | null>(null);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
 }
 
 export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
-  const reduceMotion = useReducedMotion();
+  const reducedMotion = useReducedMotionQuery();
   const containerRef = useRef<HTMLDivElement>(null);
-  const { rows, items } = useLayout(tiles);
+  const tileElRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const layout = useMemo(() => computeLayout(tiles), [tiles]);
+  const statesRef = useRef<TileState[]>([]);
+  if (statesRef.current.length !== layout.length) {
+    statesRef.current = layout.map(() => createState());
+  }
 
-  if (reduceMotion) {
+  const dragIndexRef = useRef<number | null>(null);
+  const dragOriginRef = useRef<{ x: number; y: number } | null>(null);
+  const dragMovedRef = useRef(false);
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (reducedMotion !== false) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    function measure() {
+      const rect = container!.getBoundingClientRect();
+      layout.forEach((tile, i) => {
+        const st = statesRef.current[i];
+        st.basePxX = (tile.leftPct / 100) * rect.width;
+        st.basePxY = (tile.topPct / 100) * rect.height;
+      });
+    }
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(container);
+
+    function onPointerMove(e: PointerEvent) {
+      const rect = container!.getBoundingClientRect();
+      pointerRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+
+      const i = dragIndexRef.current;
+      if (i !== null && dragOriginRef.current) {
+        const st = statesRef.current[i];
+        st.dragX = e.clientX - dragOriginRef.current.x;
+        st.dragY = e.clientY - dragOriginRef.current.y;
+        if (Math.hypot(st.dragX, st.dragY) > DRAG_THRESHOLD) {
+          dragMovedRef.current = true;
+        }
+      }
+    }
+    function onPointerLeave() {
+      pointerRef.current = null;
+    }
+    function endDrag() {
+      const i = dragIndexRef.current;
+      if (i === null) return;
+      const st = statesRef.current[i];
+      st.settledX += st.dragX;
+      st.settledY += st.dragY;
+      st.basePxX += st.dragX;
+      st.basePxY += st.dragY;
+      st.dragX = 0;
+      st.dragY = 0;
+      st.dragging = false;
+      dragIndexRef.current = null;
+      dragOriginRef.current = null;
+    }
+
+    container.addEventListener("pointermove", onPointerMove);
+    container.addEventListener("pointerleave", onPointerLeave);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+
+    let raf = requestAnimationFrame(tick);
+    function tick() {
+      const pointer = pointerRef.current;
+      layout.forEach((tile, i) => {
+        const st = statesRef.current[i];
+        if (!st.dragging) {
+          if (pointer) {
+            const dx = st.basePxX + st.settledX - pointer.x;
+            const dy = st.basePxY + st.settledY - pointer.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < REPEL_RADIUS && dist > 0.001) {
+              const strength = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
+              st.targetRepelX = (dx / dist) * strength;
+              st.targetRepelY = (dy / dist) * strength;
+            } else {
+              st.targetRepelX = 0;
+              st.targetRepelY = 0;
+            }
+          } else {
+            st.targetRepelX = 0;
+            st.targetRepelY = 0;
+          }
+        }
+        st.repelX += (st.targetRepelX - st.repelX) * EASE;
+        st.repelY += (st.targetRepelY - st.repelY) * EASE;
+
+        const el = tileElRefs.current[i];
+        if (el) {
+          const tx = st.settledX + st.repelX + st.dragX;
+          const ty = st.settledY + st.repelY + st.dragY;
+          el.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px)`;
+        }
+      });
+      raf = requestAnimationFrame(tick);
+    }
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
+    };
+  }, [reducedMotion, layout]);
+
+  if (reducedMotion !== false) {
     return (
       <ul
         className={cn(
@@ -159,40 +278,117 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
           className,
         )}
       >
-        {tiles.map((tile) => (
-          <li key={tile.href}>
-            <a
-              href={tile.href}
-              className={cn(
-                "relative block aspect-square overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                materialTreatments[tile.material],
-              )}
-            >
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-sm font-medium text-white">
-                {tile.title}
-              </span>
-            </a>
-          </li>
-        ))}
+        {tiles.map((tile) => {
+          const photo = tile.image ?? materialPhotos[tile.material];
+          return (
+            <li key={tile.href}>
+              <a
+                href={tile.href}
+                className={cn(
+                  "relative block aspect-square overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                  !photo && materialTreatments[tile.material],
+                )}
+              >
+                {photo && (
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="object-cover"
+                  />
+                )}
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-sm font-medium text-white">
+                  {tile.title}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     );
   }
 
+  const rows = Math.max(1, Math.ceil(tiles.length / COLS));
+
   return (
-    <LazyMotion features={domMax} strict>
-      <div
-        ref={containerRef}
-        className={cn("relative w-full overflow-hidden", className)}
-        style={{ height: Math.max(560, rows * 200) }}
-      >
-        {items.map((item) => (
-          <FloatingTile
-            key={item.href}
-            tile={item}
-            containerRef={containerRef}
-          />
-        ))}
-      </div>
-    </LazyMotion>
+    <div
+      ref={containerRef}
+      className={cn("relative w-full overflow-hidden", className)}
+      style={{ height: Math.max(560, rows * 200) }}
+    >
+      {layout.map((tile, i) => (
+        <div
+          key={tile.href}
+          className="absolute"
+          style={{
+            top: `${tile.topPct}%`,
+            left: `${tile.leftPct}%`,
+            width: tile.size,
+            height: tile.size,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <div
+            className="h-full w-full"
+            style={
+              {
+                animation: `float-drift ${tile.duration}s ease-in-out ${tile.delay}s infinite`,
+                "--float-dx": `${tile.floatDx}px`,
+                "--float-dy": `${tile.floatDy}px`,
+                "--float-rot-a": `${tile.rotA}deg`,
+                "--float-rot-b": `${tile.rotB}deg`,
+                "--float-rot-c": `${tile.rotC}deg`,
+              } as React.CSSProperties
+            }
+          >
+            <a
+              ref={(el) => {
+                tileElRefs.current[i] = el;
+              }}
+              href={tile.href}
+              style={{ touchAction: "none" }}
+              className="group relative block h-full w-full cursor-grab overflow-hidden transition-shadow duration-200 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring active:cursor-grabbing"
+              onPointerDown={(e) => {
+                dragIndexRef.current = i;
+                dragOriginRef.current = { x: e.clientX, y: e.clientY };
+                dragMovedRef.current = false;
+                statesRef.current[i].dragging = true;
+              }}
+              onClick={(e) => {
+                if (dragMovedRef.current) e.preventDefault();
+              }}
+            >
+              {(() => {
+                const photo = tile.image ?? materialPhotos[tile.material];
+                return photo ? (
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 20vw, 40vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div
+                    className={cn(
+                      "absolute inset-0",
+                      materialTreatments[tile.material],
+                    )}
+                  />
+                );
+              })()}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
+                <p className="text-sm font-medium text-white">{tile.title}</p>
+                {tile.meta && (
+                  <p className="text-xs text-white/70">{tile.meta}</p>
+                )}
+              </div>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

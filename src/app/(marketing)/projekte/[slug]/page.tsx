@@ -1,10 +1,15 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { CTA } from "@/components/sections/cta";
+import { Gallery } from "@/components/sections/gallery";
 import { HeroStatement } from "@/components/sections/hero";
-import { materialTreatments } from "@/components/sections/project-mosaic";
+import {
+  materialPhotos,
+  materialTreatments,
+} from "@/components/sections/project-mosaic";
 import { projects, projectsPage } from "@/content/projects";
 import { createMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
@@ -53,19 +58,40 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         }
         className="py-20 sm:py-24 lg:py-28"
       />
-      {/* Placeholder visual until real project photography is delivered
-          (CLIENT.md §18) — reuses the mosaic's material treatment instead
-          of a fabricated stock photo. */}
-      <Section background="muted">
-        <Container>
-          <div
-            className={cn(
-              "relative aspect-[16/9] w-full overflow-hidden",
-              materialTreatments[project.material],
-            )}
-          />
-        </Container>
-      </Section>
+      {project.gallery ? (
+        <Gallery images={project.gallery} background="muted" />
+      ) : (
+        // Placeholder visual until real project photography is delivered
+        // (CLIENT.md §18) — a real material macro-photo where one exists,
+        // otherwise the abstract CSS fallback (never a fabricated stock photo).
+        <Section background="muted">
+          <Container>
+            {(() => {
+              const photo = materialPhotos[project.material];
+              return (
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  {photo ? (
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1024px) 80rem, 100vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div
+                      className={cn(
+                        "absolute inset-0",
+                        materialTreatments[project.material],
+                      )}
+                    />
+                  )}
+                </div>
+              );
+            })()}
+          </Container>
+        </Section>
+      )}
       <CTA {...projectsPage.cta} />
     </>
   );

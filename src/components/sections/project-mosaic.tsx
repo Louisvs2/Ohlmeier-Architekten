@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
@@ -5,15 +6,16 @@ import { Section, type SectionBackground } from "@/components/layout/section";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { cn } from "@/lib/utils";
-import type { SectionIntro } from "@/types/content";
+import type { SectionImage, SectionIntro } from "@/types/content";
 
 // Offset editorial grid for project references — the mosaic of real photos
-// and material macro-shots on the reference site. Until real project
-// photography is delivered, tiles render abstract CSS material textures
-// instead of stock imagery (DESIGN.md §12: typographic/abstract, never
-// generic stock). This is intentionally a separate component from Gallery,
-// which guarantees one uniform crop/radius for real photo sets elsewhere —
-// the mosaic's whole point is varied tile sizes and no rounding.
+// and material macro-shots on the reference site. Each tile picks its
+// visual from a priority chain: a real per-project photo (`tile.image`) →
+// a real extracted material macro-photo (`materialPhotos`) → an abstract
+// CSS gradient fallback (`materialTreatments`, DESIGN.md §12) for materials
+// with no photo yet. This is intentionally a separate component from
+// Gallery, which guarantees one uniform crop/radius for real photo sets
+// elsewhere — the mosaic's whole point is varied tile sizes and no rounding.
 
 export type MosaicMaterial = "concrete" | "wood" | "glass" | "rust" | "steel";
 export type MosaicSpan = "sm" | "md" | "lg";
@@ -24,6 +26,7 @@ export interface MosaicTile {
   href?: string;
   material: MosaicMaterial;
   span?: MosaicSpan;
+  image?: SectionImage;
 }
 
 interface ProjectMosaicProps {
@@ -33,6 +36,32 @@ interface ProjectMosaicProps {
   wide?: boolean;
   className?: string;
 }
+
+/** Real macro-texture photos extracted from the reference site's own PDF
+ *  export (CLIENT.md) — used instead of the CSS gradients below wherever
+ *  a project has no dedicated photo of its own. */
+export const materialPhotos: Partial<Record<MosaicMaterial, SectionImage>> = {
+  concrete: {
+    src: "/images/materials/concrete.jpg",
+    alt: "Betonoberfläche, Nahaufnahme",
+  },
+  wood: {
+    src: "/images/materials/wood.jpg",
+    alt: "Sonnenbeschienene Holzlamellen, Nahaufnahme",
+  },
+  glass: {
+    src: "/images/materials/glass.jpg",
+    alt: "Materialoberfläche, Nahaufnahme",
+  },
+  rust: {
+    src: "/images/materials/rust.jpg",
+    alt: "Verwitterte Steinoberfläche, Nahaufnahme",
+  },
+  steel: {
+    src: "/images/materials/steel.jpg",
+    alt: "Gebürstete Metalloberfläche, Nahaufnahme",
+  },
+};
 
 export const materialTreatments: Record<MosaicMaterial, string> = {
   concrete:
@@ -64,14 +93,25 @@ export function ProjectMosaic({
         <FadeInStagger fast className={cn(intro && "mt-14 sm:mt-20")}>
           <ul className="grid grid-flow-dense auto-rows-[140px] grid-cols-2 gap-4 sm:auto-rows-[160px] sm:grid-cols-3 sm:gap-6 lg:auto-rows-[190px] lg:grid-cols-4 lg:gap-8">
             {tiles.map((tile) => {
+              const photo = tile.image ?? materialPhotos[tile.material];
               const visual = (
                 <>
-                  <div
-                    className={cn(
-                      "absolute inset-0 transition-transform duration-500 group-hover:scale-105",
-                      materialTreatments[tile.material],
-                    )}
-                  />
+                  {photo ? (
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div
+                      className={cn(
+                        "absolute inset-0 transition-transform duration-500 group-hover:scale-105",
+                        materialTreatments[tile.material],
+                      )}
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
                   <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                     <p className="text-sm font-medium text-white">

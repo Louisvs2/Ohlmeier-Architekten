@@ -67,6 +67,7 @@ export const home: HomeContent = {
         href: `/projekte/${project.slug}`,
         material: project.material,
         span: project.span,
+        image: project.image,
       })),
     cta: { label: "Alle Projekte ansehen", href: "/projekte" },
   },

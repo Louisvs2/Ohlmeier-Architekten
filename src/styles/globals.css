@@ -152,6 +152,11 @@
   --brand: oklch(0.72 0.18 50);
   --brand-strong: oklch(0.58 0.16 45);
   --brand-foreground: oklch(0.99 0.01 90);
+  /* This look's whole point is a bold, unmistakably orange brand — so unlike
+     the other looks, --primary (every default Button, badges, etc.) is
+     pointed at --brand instead of staying neutral. */
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
   --surface: var(--card);
   --glass-blur: 0px;
   --spotlight-strength: 0;
@@ -162,6 +167,8 @@
   --brand: oklch(0.75 0.17 52);
   --brand-strong: oklch(0.75 0.17 52);
   --brand-foreground: oklch(0.16 0.02 50);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
 }
 
 @theme inline {
@@ -232,6 +239,31 @@
   }
   ::selection {
     @apply bg-brand text-brand-foreground;
+  }
+}
+
+/* Idle drift for the floating project field (floating-projects.tsx).
+   Pure CSS so it's compositor-only and costs nothing on the main thread —
+   per-tile amplitude/rotation come in via custom properties set inline.
+   Covered by the reduced-motion block below like every other animation. */
+@keyframes float-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(var(--float-rot-a, 0deg));
+  }
+  33% {
+    transform: translate(
+        var(--float-dx, 10px),
+        calc(var(--float-dy, 14px) * -1)
+      )
+      rotate(var(--float-rot-b, 3deg));
+  }
+  66% {
+    transform: translate(
+        calc(var(--float-dx, 10px) * -0.6),
+        calc(var(--float-dy, 14px) * 0.5)
+      )
+      rotate(var(--float-rot-c, -2deg));
   }
 }
 

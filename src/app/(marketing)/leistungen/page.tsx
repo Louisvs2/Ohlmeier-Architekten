@@ -48,7 +48,7 @@ export default function LeistungenPage() {
           </ul>
         </Container>
       </Section>
-      <CTA {...servicesPage.cta} />
+      <CTA {...servicesPage.cta} background="brand" />
     </>
   );
 }

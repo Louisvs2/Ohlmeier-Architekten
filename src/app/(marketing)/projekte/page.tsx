@@ -30,10 +30,11 @@ export default function ProjektePage() {
               project.category,
             href: `/projekte/${project.slug}`,
             material: project.material,
+            image: project.image,
           }))}
         />
       </Section>
-      <CTA {...projectsPage.cta} background="muted" />
+      <CTA {...projectsPage.cta} background="brand" />
     </>
   );
 }
