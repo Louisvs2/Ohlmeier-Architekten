@@ -14,26 +14,25 @@
 
 ## 1. Company Name
 
-- **Legal name:** [Full legal company name, e.g. "Müller Sanitärtechnik GmbH"]
-- **Display name / brand name:** [Name as it should appear on the website, e.g. "Müller Sanitär"]
-- **Domain:** [e.g. www.example.de — confirmed and owned by client? yes/no]
-- **Tagline / slogan (if any):** [Existing slogan, or "none — to be developed"]
+- **Legal name:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Display name / brand name:** Ohlmeier Architekten
+- **Domain:** https://www.ohlmeier-architekten.de/
+- **Tagline / slogan (if any):** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
 
 ## 2. Industry
 
-- **Industry / sector:** [e.g. plumbing & heating, law firm, dental practice, SaaS]
-- **Business type:** [local service business / regional / national / online-only]
-- **Years in business:** [e.g. "since 1998" — useful as a trust signal]
-- **Team size:** [e.g. 12 employees — useful for About/Team section]
+- **Industry / sector:** Architektur
+- **Business type:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Years in business:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Team size:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
 
 ## 3. Target Audience
 
-- **Primary audience:** [Who exactly? e.g. "homeowners aged 35–65 in the greater Munich area planning a bathroom renovation"]
-- **Secondary audience:** [e.g. "property managers and landlords" — or "none"]
-- **Customer situation / pain points:** [What problem do they have when they search for this company? What are they worried about?]
-- **Decision criteria:** [What makes them choose one provider over another? Price, speed, trust, quality, proximity?]
-- **Knowledge level:** [layperson / informed / expert — determines how technical the copy may be]
-- **B2C / B2B / both:** [ ]
+- **Primary audience:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Secondary audience:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Customer situation / pain points:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Knowledge level:** experts
+- **B2C / B2B / both:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
 
 ## 4. Services
 
@@ -114,12 +113,12 @@
 
 ## 12. Address
 
-- **Street & number:** [...]
-- **ZIP & city:** [...]
-- **Country:** [...]
+- **Street & number:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **ZIP & city:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Country:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
 - **Show address publicly?** ☐ yes ☐ no (online-only / home office)
 - **Google Maps embed on contact page?** ☐ yes ☐ no
-- **Directions / parking notes:** [if relevant for walk-in customers, else "n/a"]
+- **Directions / parking notes:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
 
 ## 13. Opening Hours
 
@@ -278,3 +277,5 @@
 - **Domain & hosting access:** [registrar, DNS access status — needed for Vercel setup]
 - **Existing site migration notes:** [what must be preserved? redirects? email addresses?]
 - **Anything else the team must know:** [free text — quirks, history, sensitivities, promises made in sales calls]
+
+- **all not supplied information:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
