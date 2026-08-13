@@ -7,56 +7,57 @@
 > - Feeds design tokens (`globals.css`) → Brand Colors, Typography
 > - Guides copywriting & SEO → Target Audience, Tone of Voice, Keywords, CTAs
 >
-> **Status:** ☐ Draft ☐ Complete & approved by client ☐ Handed off to development
-> **Last updated:** [YYYY-MM-DD] · **Filled in by:** [Name]
+> **Status:** ☐ Draft ☑ teilweise recherchiert — offene Punkte mit ❓ markiert ☐ Complete & approved by client ☐ Handed off to development
+> **Last updated:** 2026-08-13 · **Filled in by:** Claude (Recherche aus öffentlichen Quellen — Direktzugriff auf ohlmeier-architekten.de war netzwerkseitig blockiert, Daten stammen aus Suchmaschinen-Snippets/Branchenverzeichnissen. Vor Launch mit dem Kunden verifizieren.)
 
 ---
 
 ## 1. Company Name
 
-- **Legal name:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Legal name:** Ohlmeier Architekten PartmbB
 - **Display name / brand name:** Ohlmeier Architekten
 - **Domain:** https://www.ohlmeier-architekten.de/
-- **Tagline / slogan (if any):** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Tagline / slogan (if any):** ❓ mit Kunde klären
 
 ## 2. Industry
 
-- **Industry / sector:** Architektur
-- **Business type:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Years in business:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Team size:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Industry / sector:** Architektur — Planung von Wohn-, Büro-, Sonder- und Gewerbebauten
+- **Business type:** Partnerschaftsgesellschaft mbB (PartmbB); Mitglied im BDA (Bund Deutscher Architektinnen und Architekten)
+- **Years in business:** Bürogründung 1992 → 34 Jahre (Stand 2026)
+- **Team size:** ❓ mit Kunde klären — geführt von zwei Partnern (siehe §11)
 
 ## 3. Target Audience
 
-- **Primary audience:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Secondary audience:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Customer situation / pain points:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Primary audience:** Private Bauherren (Ein-/Zweifamilienhäuser), Unternehmen mit Büro-/Verwaltungs-/Gewerbebauten, Träger von Pflege-/Wohnheimen und medizinischen Bauten
+- **Secondary audience:** Öffentliche Träger (Schulen), Hotellerie
+- **Customer situation / pain points:** ❓ mit Kunde klären
 - **Knowledge level:** experts
-- **B2C / B2B / both:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **B2C / B2B / both:** both — private Bauherren und institutionelle/gewerbliche Auftraggeber
 
 ## 4. Services
 
 > List every service that should appear on the website. Order = display order. Each service becomes an entry in `src/content/` and, if marked, a detail page under `/leistungen/[slug]`.
 
-| #   | Service name | Short description (1–2 sentences)                 | Detail page? | Priority    |
-| --- | ------------ | ------------------------------------------------- | ------------ | ----------- |
-| 1   | [Service A]  | [What is it, what outcome does the customer get?] | yes/no       | high/normal |
-| 2   | [Service B]  | [...]                                             | yes/no       | high/normal |
-| 3   | [Service C]  | [...]                                             | yes/no       | high/normal |
-| 4   | [...]        | [...]                                             | yes/no       | high/normal |
+| #   | Service name                       | Short description (1–2 sentences)                                                             | Detail page? | Priority |
+| --- | ---------------------------------- | --------------------------------------------------------------------------------------------- | ------------ | -------- |
+| 1   | Entwurfsplanung                    | Von der ersten Idee bis zum genehmigungsfähigen Entwurf — Grundlagenermittlung bis Bauantrag. | yes          | high     |
+| 2   | Ausführungsplanung & Ausschreibung | Detaillierte Planung und Vergabe an ausführende Firmen, HOAI-Leistungsphasen 5–7.             | yes          | high     |
+| 3   | Objektüberwachung                  | Bauleitung und Qualitätssicherung auf der Baustelle bis zur Übergabe (HOAI-Leistungsphase 8). | yes          | high     |
+| 4   | Innenausbau, Messe- & Ladenbau     | Objekteinrichtungen und Innenausbau für Gewerbe- und Verkaufsflächen.                         | no           | normal   |
 
-- **Flagship service** (gets the most prominence): [Service name]
-- **Services explicitly NOT offered** (to avoid wrong inquiries): [e.g. "no emergency service", or "none"]
+- **Flagship service** (gets the most prominence): Komplettbetreuung über alle HOAI-Leistungsphasen — vom Entwurf bis zur Bauüberwachung
+- **Services explicitly NOT offered** (to avoid wrong inquiries): ❓ mit Kunde klären
 
 ## 5. USP (Unique Selling Proposition)
 
-- **Main USP in one sentence:** [Why should a customer choose this company and not the competitor? Be specific — "quality and reliability" is not a USP.]
-- **Supporting proof points (3–5):**
-  - [e.g. "24h response time, guaranteed in writing"]
-  - [e.g. "certified XYZ partner — only one in the region"]
-  - [e.g. "fixed-price quotes, no hidden costs"]
-- **Guarantees / certifications / awards:** [List with year — these appear as trust signals]
-- **Numbers we may publish:** [e.g. "1,200+ completed projects", "4.9★ from 214 reviews" — only real, verifiable numbers]
+- **Main USP in one sentence:** ❓ mit Kunde klären — in eigenen Worten des Kunden formulieren, nicht raten
+- **Supporting proof points (3–5), verifiziert:**
+  - Seit 1992 in Kassel — 34 Jahre kontinuierliche Erfahrung
+  - Mitglied im BDA (Bund Deutscher Architektinnen und Architekten)
+  - Generationsübergreifend geführt: Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.
+  - Breites Typologie-Spektrum: Wohn-, Büro-, Pflege-, Bildungs- und Gewerbebauten
+- **Guarantees / certifications / awards:** ❓ mit Kunde klären
+- **Numbers we may publish:** ❓ mit Kunde klären — keine Projekt-/Weiterempfehlungszahlen recherchierbar, nicht erfinden
 
 ## 6. Brand Personality
 
@@ -70,212 +71,206 @@
 | Corporate           | ☐   | ☐   | ☐   | ☐   | ☐   | Personal                   |
 | Calm / understated  | ☐   | ☐   | ☐   | ☐   | ☐   | Bold / expressive          |
 
-- **Three adjectives the client wants visitors to feel:** [e.g. "competent, warm, precise"]
-- **Brands the client admires (any industry):** [Used to calibrate taste — not to copy]
+- **Three adjectives the client wants visitors to feel:** ❓ mit Kunde klären
+- **Brands the client admires (any industry):** ❓ mit Kunde klären
 
 ## 7. Tone of Voice
 
-- **Formality (German sites):** ☐ "Sie" (formal) ☐ "Du" (informal)
-- **Language(s) of the website:** [e.g. German only / German + English]
-- **Voice description:** [e.g. "confident but never salesy; short sentences; plain language, no jargon"]
-- **Words / phrases to use:** [Industry terms or brand phrases the client wants]
-- **Words / phrases to avoid:** [e.g. "cheap", superlatives, anglicisms — anything the client dislikes]
-- **Example sentence in the target tone:** [Write one hero-style sentence as calibration]
+- **Formality (German sites):** ☑ "Sie" (formal) ☐ "Du" (informal) — Branchenstandard für Architekturbüros, mit Kunde bestätigen
+- **Language(s) of the website:** German only (Annahme — mit Kunde bestätigen)
+- **Voice description:** ❓ mit Kunde klären
+- **Words / phrases to use:** ❓ mit Kunde klären
+- **Words / phrases to avoid:** ❓ mit Kunde klären
+- **Example sentence in the target tone:** ❓ mit Kunde klären
 
 ## 8. Business Goals
 
-- **Primary goal of the website:** [e.g. "generate qualified inquiries for bathroom renovations" — one goal, specific]
-- **Secondary goals:** [e.g. "build trust for high-ticket projects", "attract job applicants", "reduce phone questions via FAQ"]
-- **What does a successful website mean in numbers?** [e.g. "10 qualified inquiries per month"]
-- **Current situation:** [Existing website? What works, what doesn't? Where do customers currently come from?]
+- **Primary goal of the website:** ❓ mit Kunde klären — vermutlich qualifizierte Projektanfragen (privat + gewerblich)
+- **Secondary goals:** ❓ mit Kunde klären
+- **What does a successful website mean in numbers?** ❓ mit Kunde klären
+- **Current situation:** Bestehende Website unter ohlmeier-architekten.de vorhanden (Startseite, /oa, /projekte, /kontakt, /impressum). Was funktioniert/nicht funktioniert und woher aktuelle Kunden kommen: ❓ mit Kunde klären
 
 ## 9. Primary Call To Action
 
-- **Action:** [What exactly should the visitor do? e.g. "request a free on-site quote"]
-- **CTA label:** [Exact button text, e.g. "Kostenloses Angebot anfordern"]
-- **Destination / mechanism:** [contact form / phone call / booking tool (which?) / email]
-- **What happens after?** [e.g. "we reply within 24h with a callback" — used as reassurance microcopy under the CTA]
+- **Action:** ❓ mit Kunde klären — Annahme: "Projekt anfragen / Erstgespräch vereinbaren"
+- **CTA label:** ❓ mit Kunde klären
+- **Destination / mechanism:** Kontaktformular / Telefon / E-Mail
+- **What happens after?** ❓ mit Kunde klären
 
 ## 10. Secondary Call To Action
 
-- **Action:** [Lower-commitment alternative, e.g. "view reference projects" or "call directly"]
-- **CTA label:** [Exact button/link text]
-- **Destination:** [page / phone number / download]
+- **Action:** Referenzprojekte ansehen (die alte Website hat eine eigene /projekte-Sektion — im Template aktuell nicht abgebildet, siehe §27)
+- **CTA label:** ❓ mit Kunde klären
+- **Destination:** Projekte-/Referenzenseite
 
 ## 11. Contact Information
 
-- **Phone:** [+49 ...] — ☐ show prominently in header ☐ footer only
-- **Email:** [info@example.de]
-- **WhatsApp / other channels:** [number or "none"]
-- **Contact person (name + role, for photos/signatures):** [e.g. "Thomas Müller, Owner"]
-- **Preferred contact method for form submissions:** [where do form emails go?]
-- **Response time promise:** [e.g. "within 24 hours" — or "none"]
+- **Phone:** +49 561 3085570 — ☑ show prominently in header ☐ footer only (Annahme, mit Kunde bestätigen)
+- **Email:** office@ohlmeier-architekten.de
+- **WhatsApp / other channels:** none bekannt
+- **Contact person (name + role, for photos/signatures):** Dipl.-Ing. Hans-Georg Ohlmeier (Partner) und Philipp Ohlmeier, M.Sc. (Partner)
+- **Preferred contact method for form submissions:** ❓ mit Kunde klären (vermutlich office@ohlmeier-architekten.de)
+- **Response time promise:** ❓ mit Kunde klären — nicht ungeprüft "24h" versprechen
 
 ## 12. Address
 
-- **Street & number:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **ZIP & city:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Country:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
-- **Show address publicly?** ☐ yes ☐ no (online-only / home office)
-- **Google Maps embed on contact page?** ☐ yes ☐ no
-- **Directions / parking notes:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Street & number:** Rolandstraße 4
+- **ZIP & city:** 34131 Kassel (Bad Wilhelmshöhe)
+- **Country:** Deutschland
+- **Show address publicly?** ☑ yes
+- **Google Maps embed on contact page?** ❓ mit Kunde klären
+- **Directions / parking notes:** ❓ mit Kunde klären
 
 ## 13. Opening Hours
 
 > Used in the footer, contact page, and `LocalBusiness` structured data.
 
-| Day       | Hours                  |
-| --------- | ---------------------- |
-| Monday    | [08:00–17:00 / closed] |
-| Tuesday   | [...]                  |
-| Wednesday | [...]                  |
-| Thursday  | [...]                  |
-| Friday    | [...]                  |
-| Saturday  | [...]                  |
-| Sunday    | [...]                  |
+| Day       | Hours |
+| --------- | ----- |
+| Monday    | ❓    |
+| Tuesday   | ❓    |
+| Wednesday | ❓    |
+| Thursday  | ❓    |
+| Friday    | ❓    |
+| Saturday  | ❓    |
+| Sunday    | ❓    |
 
-- **Deviations / notes:** [e.g. "by appointment only", "24/7 emergency line", or "not applicable — online business"]
+- **Deviations / notes:** ❓ mit Kunde klären — nicht recherchierbar
 
 ## 14. Service Area
 
-- **Geographic area served:** [e.g. "Munich + 50 km radius", "all of Bavaria", "Germany-wide", "global"]
-- **Cities/regions to mention explicitly (local SEO):** [e.g. "Munich, Freising, Erding, Dachau"]
-- **On-site service or customers come to us?** [ ]
+- **Geographic area served:** Kassel und Nordhessen als Schwerpunkt; Referenzprojekte auch überregional (u. a. Bad Wildungen, Borken)
+- **Cities/regions to mention explicitly (local SEO):** Kassel, Bad Wilhelmshöhe, Nordhessen — weitere Orte ❓ mit Kunde klären
+- **On-site service or customers come to us?** Beides üblich in der Architekturbranche — ❓ mit Kunde klären
 
 ## 15. Brand Colors
 
 > Becomes the design tokens in `globals.css`. If no brand colors exist, note preferences and the agency proposes a palette (per `DESIGN.md` §5: neutral ramp + one accent).
 
 - **Existing brand colors (exact values):**
-  - Primary: [#HEX / "none"]
-  - Secondary: [#HEX / "none"]
-  - Source of truth: [logo file / style guide / "colors exist only in the old website"]
-- **Color preferences / direction (if no fixed brand):** [e.g. "warm, earthy", "clean tech blue"]
-- **Colors to avoid:** [e.g. "no red — competitor's color"]
-- **Dark mode desired?** ☐ yes ☐ no ☐ agency decides
+  - Primary: ❓ mit Kunde klären (Logo/Style Guide anfordern)
+  - Secondary: ❓ mit Kunde klären
+  - Source of truth: ❓ mit Kunde klären
+- **Color preferences / direction (if no fixed brand):** ❓ mit Kunde klären — Vorschlag: zurückhaltende, hochwertige Palette (Architektur-Branchenstandard), agency decides bis Kundenrückmeldung
+- **Colors to avoid:** ❓ mit Kunde klären
+- **Dark mode desired?** ☐ yes ☐ no ☑ agency decides (bis Kundenrückmeldung)
 - ⚠️ Note: final shades may be adjusted to meet WCAG AA contrast (per `DESIGN.md` §17). Brand color ≠ text color.
 
 ## 16. Typography Preferences
 
-- **Existing brand font(s):** [Name + license status / webfont files available? / "none"]
-- **Direction if none exists:** [e.g. "modern grotesque", "classic serif for premium feel", "agency decides"]
-- **Must-avoid:** [e.g. "nothing playful/handwritten"]
+- **Existing brand font(s):** ❓ mit Kunde klären
+- **Direction if none exists:** Vorschlag: klare, moderne Grotesk für Architektur-Anspruch — agency decides bis Kundenrückmeldung
+- **Must-avoid:** ❓ mit Kunde klären
 - ⚠️ Fonts must be self-hostable via `next/font` (license permitting). Google Fonts CDN is not used (GDPR).
 
 ## 17. Existing Logo
 
-- **Logo exists?** ☐ yes ☐ no ☐ needs rework (separate scope)
-- **Files provided:** [SVG preferred; formats received: ...] — **Location:** [link/folder]
-- **Variants available:** ☐ light background ☐ dark background ☐ icon-only / favicon source
-- **Protection rules:** [minimum size, clear space, "never on photos", or "none defined"]
+- **Logo exists?** ☑ yes (auf aktueller Website im Einsatz) ☐ no ☐ needs rework
+- **Files provided:** ❓ noch nicht angefordert — Vektor-/Quelldatei beim Kunden anfragen
+- **Variants available:** ❓ mit Kunde klären
+- **Protection rules:** ❓ mit Kunde klären
 
 ## 18. Existing Images
 
-- **What exists?** [team photos / premises / completed projects / products / "nothing usable"]
-- **Location & rights:** [link/folder — usage rights confirmed? photographer credit required?]
-- **Quality assessment (by agency):** [usable as-is / usable with editing / re-shoot recommended]
-- **Photo shoot planned?** ☐ yes, date: [...] ☐ no
-- **If imagery is missing:** [agreed fallback per `DESIGN.md` §12 — typographic/abstract treatment; NO generic stock, NO generic AI images]
+- **What exists?** Referenzprojekt-Fotos auf der bestehenden Website (/projekte) — Wohn-, Büro- und Sonderbauten
+- **Location & rights:** ❓ mit Kunde klären — Nutzungsrechte/Fotografennennung vor Übernahme klären
+- **Quality assessment (by agency):** noch nicht geprüft (Direktzugriff auf die alte Website derzeit blockiert)
+- **Photo shoot planned?** ❓ mit Kunde klären
+- **If imagery is missing:** Fallback per `DESIGN.md` §12 — typografische/abstrakte Gestaltung; kein generisches Stock-/KI-Material
 
 ## 19. Social Media
 
 > Linked in footer and `sameAs` structured data. Only list profiles that are actively maintained — dead profiles hurt trust.
 
-| Platform           | URL       | Active? | Show on site? |
-| ------------------ | --------- | ------- | ------------- |
-| Instagram          | [URL / —] | yes/no  | yes/no        |
-| Facebook           | [URL / —] | yes/no  | yes/no        |
-| LinkedIn           | [URL / —] | yes/no  | yes/no        |
-| YouTube            | [URL / —] | yes/no  | yes/no        |
-| TikTok / X / other | [URL / —] | yes/no  | yes/no        |
+| Platform           | URL                                             | Active? | Show on site? |
+| ------------------ | ----------------------------------------------- | ------- | ------------- |
+| Instagram          | https://www.instagram.com/ohlmeier_architekten/ | ❓      | ❓            |
+| Facebook           | ❓ mit Kunde klären                             | ❓      | ❓            |
+| LinkedIn           | ❓ mit Kunde klären                             | ❓      | ❓            |
+| YouTube            | —                                               | no      | no            |
+| TikTok / X / other | —                                               | no      | no            |
 
 ## 20. Google Reviews
 
-- **Google Business Profile URL:** [link / "none — to be created"]
-- **Current rating & count:** [e.g. "4.8★, 132 reviews" as of YYYY-MM-DD]
-- **Show rating on the website?** ☐ yes ☐ no
+- **Google Business Profile URL:** ❓ mit Kunde klären
+- **Current rating & count:** ❓ mit Kunde klären — nicht ungeprüft veröffentlichen
+- **Show rating on the website?** ❓ mit Kunde klären
 - **Best reviews to feature as testimonials** (with reviewer name — permission confirmed?):
-  1. [Quote — Name, context] — permission: yes/no
-  2. [Quote — Name, context] — permission: yes/no
-  3. [Quote — Name, context] — permission: yes/no
-- **Additional testimonials outside Google:** [source + permission status]
+  1. ❓ mit Kunde klären — keine echten Zitate erfinden
+  2. ❓
+  3. ❓
+- **Additional testimonials outside Google:** ❓ mit Kunde klären
 
 ## 21. Competitors
 
 > Used for positioning and SEO — never for copying.
 
-| Competitor | Website | What they do well | How we differentiate |
-| ---------- | ------- | ----------------- | -------------------- |
-| [Name]     | [URL]   | [...]             | [...]                |
-| [Name]     | [URL]   | [...]             | [...]                |
-| [Name]     | [URL]   | [...]             | [...]                |
+| Competitor          | Website | What they do well | How we differentiate |
+| ------------------- | ------- | ----------------- | -------------------- |
+| ❓ mit Kunde klären | ❓      | ❓                | ❓                   |
 
-- **Websites the client likes (any industry) & why:** [URL — what specifically?]
-- **Websites the client dislikes & why:** [URL — what specifically?]
+- **Websites the client likes (any industry) & why:** ❓ mit Kunde klären
+- **Websites the client dislikes & why:** ❓ mit Kunde klären
 
 ## 22. SEO Keywords
 
-- **Primary keyword (homepage):** [e.g. "Badsanierung München"]
+- **Primary keyword (homepage):** ❓ mit Kunde klären — Kandidat: "Architekturbüro Kassel"
 - **Keyword per service page:**
 
-| Page        | Target keyword | Search intent                 |
-| ----------- | -------------- | ----------------------------- |
-| Home        | [...]          | [...]                         |
-| [Service A] | [...]          | [informational/transactional] |
-| [Service B] | [...]          | [...]                         |
+| Page               | Target keyword                    | Search intent |
+| ------------------ | --------------------------------- | ------------- |
+| Home               | Architekturbüro Kassel (Kandidat) | transactional |
+| Entwurfsplanung    | ❓                                | ❓            |
+| Ausführungsplanung | ❓                                | ❓            |
 
-- **Local modifiers:** [city/region terms from §14]
-- **Terms customers actually use** (client's words, from real inquiries): [often differs from industry jargon!]
-- **Existing rankings to preserve** (if relaunch): [URLs + keywords — redirects required!]
+- **Local modifiers:** Kassel, Nordhessen (siehe §14) — vollständige Liste ❓ mit Kunde klären
+- **Terms customers actually use** (client's words, from real inquiries): ❓ mit Kunde klären
+- **Existing rankings to preserve** (if relaunch): Bestehende Seiten `/`, `/oa`, `/projekte`, `/kontakt`, `/impressum` sind indexiert — Redirects für gleichwertige neue URLs einplanen
 
 ## 23. Frequently Asked Questions
 
 > Minimum 5 real questions customers actually ask (phone/email). Feeds the FAQ section + FAQ structured data. Include the uncomfortable ones (price, duration) — they convert best.
 
-1. **Q:** [Question] — **A:** [Answer, 2–4 sentences, in the brand's tone]
-2. **Q:** [...] — **A:** [...]
-3. **Q:** [...] — **A:** [...]
-4. **Q:** [...] — **A:** [...]
-5. **Q:** [...] — **A:** [...]
+❓ mit Kunde klären — keine echten Kundenfragen recherchierbar, nicht erfinden. Die Platzhalter in `src/content/home.ts` und `src/content/services.ts` bleiben bis zur Kundenrückmeldung als Platzhalter markiert.
 
 ## 24. Legal Pages
 
 > GDPR-critical — must be complete before launch. The agency provides page templates; legal content responsibility stays with the client.
 
-- **Impressum data complete?** ☐ yes — [legal form, registration court & number, VAT ID, responsible person, supervisory authority/chamber if applicable]
-- **Privacy policy:** ☐ client provides ☐ client's lawyer ☐ generator (which?) — [status]
-- **Analytics/tracking planned:** [Vercel Analytics / other — must be reflected in privacy policy + consent banner]
-- **Terms & conditions (AGB) page needed?** ☐ yes ☐ no
-- **Cancellation policy / other industry-specific legal pages:** [e.g. Widerrufsbelehrung, or "none"]
-- **Professional regulations** (regulated professions: lawyers, doctors, …): [applicable rules or "n/a"]
+- **Impressum data complete?** ☑ teilweise — recherchiert: Ohlmeier Architekten PartmbB, Rolandstraße 4, 34131 Kassel; vertretungsberechtigte Partner Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.; Partnerschaftsregister Amtsgericht Frankfurt am Main, PR 2887; Tel. 0561 3085570, office@ohlmeier-architekten.de. Fehlend: USt-IdNr., zuständige Kammer (Architektenkammer Hessen, Annahme), Berufshaftpflichtversicherung-Angaben (bei PartmbB Pflichtangabe nach § 5 DDG) — ❓ vor Launch mit Kunde verifizieren, alle recherchierten Angaben stammen aus Suchmaschinen-Snippets, nicht aus der Originalquelle.
+- **Privacy policy:** ❓ mit Kunde klären — Template-Platzhalter, muss von Rechtsberatung final geprüft werden
+- **Analytics/tracking planned:** Vercel Analytics (aus `PLAN.md` §2) — Consent-Banner vorhanden
+- **Terms & conditions (AGB) page needed?** ❓ mit Kunde klären — bei Planungsleistungen unüblich, vermutlich no
+- **Cancellation policy / other industry-specific legal pages:** ❓ mit Kunde klären
+- **Professional regulations** (regulated professions: lawyers, doctors, …): Architekt — Berufsordnung der Architektenkammer Hessen (Annahme) gilt; ❓ mit Kunde/Kammer verifizieren
 
 ## 25. Required Sections
 
 > Check every section this website needs. Default template sections per `PLAN.md` §4.
 
 **Pages:**
-☐ Home ☐ About us ☐ Services overview ☐ Service detail pages ☐ Contact ☐ [Other: ...]
+☑ Home ☑ About us ☑ Services overview ☑ Service detail pages ☑ Contact ☑ Other: **Projekte/Referenzen** — auf der bestehenden Website ein eigener Bereich (`/projekte` + Detailseiten), im aktuellen Template-Grundgerüst noch nicht vorgesehen (siehe §27)
 
 **Homepage sections:**
-☐ Hero ☐ Logo cloud / "known from" ☐ Services grid ☐ Process steps ("how we work") ☐ Stats ☐ Testimonials ☐ Team ☐ FAQ ☐ Pricing ☐ Final CTA ☐ [Other: ...]
+☑ Hero ☐ Logo cloud / "known from" ☑ Services grid ☑ Process steps ("how we work") ☐ Stats (nur mit echten Zahlen, aktuell keine verifizierbar) ☐ Testimonials (nur mit echten, freigegebenen Zitaten) ☐ Team ☑ FAQ (Platzhalter bis echte Fragen vorliegen) ☐ Pricing ☑ Final CTA ☑ Other: Projekt-/Referenz-Highlights
 
-- **Special requirements beyond the template:** [e.g. job listings, gallery, downloads area — flag early, may affect scope/quote]
+- **Special requirements beyond the template:** Referenzprojekte-/Portfolio-Bereich (Galerie mit Projektdetails) ist bei einem Architekturbüro zentral und fehlt im Grundgerüst — Scope-Erweiterung mit Kunde/Team abstimmen.
 
 ## 26. Sections to Avoid
 
-- **Explicitly unwanted sections/elements:** [e.g. "no pricing on the website", "no team photos — privacy", "no blog"]
-- **Topics not to mention:** [e.g. former partnerships, discontinued services]
-- **Reason (if relevant for future decisions):** [...]
+- **Explicitly unwanted sections/elements:** ❓ mit Kunde klären
+- **Topics not to mention:** ❓ mit Kunde klären
+- **Reason (if relevant for future decisions):** ❓ mit Kunde klären
 - ℹ️ Independent of client wishes, everything in `DESIGN.md` §18 (banned patterns) never ships.
 
 ## 27. Notes
 
-- **Deadline / desired launch date:** [date + reason, e.g. trade fair]
-- **Budget notes / agreed scope:** [reference to offer/contract]
-- **Decision maker & approval process:** [who signs off? one person or committee?]
-- **Content delivery:** [who writes/delivers what by when? texts, images, legal]
-- **Domain & hosting access:** [registrar, DNS access status — needed for Vercel setup]
-- **Existing site migration notes:** [what must be preserved? redirects? email addresses?]
-- **Anything else the team must know:** [free text — quirks, history, sensitivities, promises made in sales calls]
+- **Deadline / desired launch date:** ❓ mit Kunde klären
+- **Budget notes / agreed scope:** ❓ mit Kunde klären
+- **Decision maker & approval process:** vermutlich Hans-Georg Ohlmeier und/oder Philipp Ohlmeier (Partner) — ❓ bestätigen
+- **Content delivery:** ❓ mit Kunde klären
+- **Domain & hosting access:** ❓ mit Kunde klären — Domain ohlmeier-architekten.de existiert bereits, Registrar/DNS-Zugang für Vercel-Umzug anfragen
+- **Existing site migration notes:** Bestehende URLs `/`, `/oa`, `/projekte`(+Detailseiten), `/kontakt`, `/impressum` sollten auf gleichwertige neue URLs weitergeleitet werden; E-Mail-Adresse office@ohlmeier-architekten.de muss erhalten bleiben.
+- **Anything else the team must know:** Direktzugriff auf ohlmeier-architekten.de war beim Erstellen dieser Briefing-Version netzwerkseitig blockiert (Egress-Proxy). Alle Angaben stammen aus Google-Suchindex-Snippets, Branchenverzeichnissen (11880, Das Örtliche, Gelbe Seiten, heinze.de) und Kompass — **nicht von der Originalseite selbst**. Vor Launch zwingend gegen die echte Website und mit dem Kunden direkt verifizieren, insbesondere Impressum-Pflichtangaben (USt-IdNr., Kammer, Berufshaftpflicht).
 
-- **all not supplied information:** auf bisherige website nachschauen https://www.ohlmeier-architekten.de/
+- **Remaining open items:** Alle mit ❓ markierten Felder oben — Tagline, USP-Formulierung, Tonalität, genaue Öffnungszeiten, Markenfarben/Logo-Dateien, echte Testimonials, FAQ-Inhalte, Budget/Deadline.

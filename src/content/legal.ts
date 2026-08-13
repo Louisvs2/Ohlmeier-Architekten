@@ -19,25 +19,34 @@ export const impressum: LegalPageContent = {
     {
       title: "Angaben gemäß § 5 DDG",
       paragraphs: [
-        "[Vollständiger Firmenname und Rechtsform]",
-        "[Straße und Hausnummer], [PLZ und Ort]",
-        "Vertreten durch: [Name der vertretungsberechtigten Person]",
+        "Ohlmeier Architekten PartmbB",
+        "Rolandstraße 4, 34131 Kassel",
+        "Vertreten durch: Dipl.-Ing. Hans-Georg Ohlmeier, Philipp Ohlmeier, M.Sc. (Partner)",
       ],
     },
     {
       title: "Kontakt",
-      paragraphs: ["Telefon: [Telefonnummer]", "E-Mail: [E-Mail-Adresse]"],
+      paragraphs: [
+        "Telefon: +49 561 3085570",
+        "E-Mail: office@ohlmeier-architekten.de",
+      ],
     },
     {
       title: "Registereintrag",
       paragraphs: [
-        "Eintragung im Handelsregister: [Registergericht], [Registernummer] — falls nicht zutreffend, Abschnitt entfernen.",
+        "Eintragung im Partnerschaftsregister: Amtsgericht Frankfurt am Main, PR 2887. [Vor Veröffentlichung mit Originalquelle verifizieren — Angabe stammt aus einer Web-Recherche, nicht von der Originalseite.]",
+      ],
+    },
+    {
+      title: "Zuständige Kammer",
+      paragraphs: [
+        "[Vermutlich Architektenkammer Hessen — mit Kunde bestätigen und ggf. Berufsbezeichnung, Verleihungsstaat sowie Angaben zur Berufshaftpflichtversicherung gemäß § 5 DDG ergänzen.]",
       ],
     },
     {
       title: "Umsatzsteuer-ID",
       paragraphs: [
-        "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr.] — falls nicht vorhanden, Abschnitt entfernen.",
+        "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: [USt-IdNr. — mit Kunde klären; falls nicht vorhanden, Abschnitt entfernen.]",
       ],
     },
     {
@@ -56,7 +65,7 @@ export const datenschutz: LegalPageContent = {
     {
       title: "Verantwortlicher",
       paragraphs: [
-        "Verantwortlich für die Datenverarbeitung auf dieser Website: [Firmenname], [Anschrift], [E-Mail-Adresse].",
+        "Verantwortlich für die Datenverarbeitung auf dieser Website: Ohlmeier Architekten PartmbB, Rolandstraße 4, 34131 Kassel, office@ohlmeier-architekten.de.",
       ],
     },
     {

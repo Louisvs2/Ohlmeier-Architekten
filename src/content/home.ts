@@ -1,6 +1,8 @@
-// Placeholder content for the default homepage. Replaced per client from
-// the CLIENT.md briefing — no line of this file may survive a client launch.
-// Structure and tone demonstrate the intended quality bar (DESIGN.md §14).
+// Startseiten-Inhalte für Ohlmeier Architekten, aus verifizierten Fakten
+// (CLIENT.md). Stats enthalten nur belegbare Zahlen (Gründungsjahr) —
+// unbekannte Kennzahlen (Projektanzahl, Weiterempfehlungsrate) wurden
+// bewusst entfernt statt erfunden. Testimonials und FAQ bleiben Platzhalter,
+// bis der Kunde echte Zitate bzw. echte Kundenfragen liefert (CLIENT.md §20, §23).
 
 import type { Service } from "@/components/sections/features";
 import type { FaqItem } from "@/components/sections/faq";
@@ -27,10 +29,10 @@ interface HomeContent {
 
 export const home: HomeContent = {
   hero: {
-    eyebrow: "Platzhalter-Eyebrow",
-    title: "Ein klares Versprechen in einem Satz",
+    eyebrow: "Architekturbüro in Kassel seit 1992",
+    title: "Architektur, die Nutzung, Budget und Ort zusammendenkt",
     subtitle:
-      "Ein unterstützender Satz, der das Versprechen konkretisiert: für wen, mit welchem Ergebnis und warum dieses Unternehmen die richtige Wahl ist.",
+      "Ohlmeier Architekten begleitet Bauvorhaben vom ersten Entwurf bis zur Bauüberwachung — für private Bauherren ebenso wie für Büro-, Pflege- und Bildungsbauten.",
     actions: {
       primary: { label: "Projekt anfragen", href: "/kontakt" },
       secondary: { label: "Leistungen ansehen", href: "/leistungen" },
@@ -41,7 +43,7 @@ export const home: HomeContent = {
       eyebrow: "Leistungen",
       title: "Was wir für Sie tun",
       subtitle:
-        "Drei bis vier Kernleistungen, jeweils als Ergebnis für den Kunden formuliert — nicht als Fähigkeit des Unternehmens.",
+        "Von der ersten Idee bis zur Übergabe — über alle Leistungsphasen der HOAI.",
     },
     items: services.map((service) => ({
       icon: service.icon,
@@ -51,10 +53,8 @@ export const home: HomeContent = {
     })),
   },
   stats: [
-    { value: 120, suffix: "+", label: "Abgeschlossene Projekte" },
-    { value: 15, label: "Jahre Erfahrung" },
-    { value: 98, suffix: " %", label: "Weiterempfehlungsrate" },
-    { value: 24, suffix: " h", label: "Antwortzeit, garantiert" },
+    { value: 1992, label: "Bürogründung" },
+    { value: 34, label: "Jahre Erfahrung" },
   ],
   process: {
     intro: {
@@ -67,17 +67,17 @@ export const home: HomeContent = {
       {
         title: "Kennenlernen",
         description:
-          "Ein unverbindliches Erstgespräch: Ausgangslage, Ziele und ob wir zusammenpassen. Danach wissen beide Seiten, woran sie sind.",
+          "Ein Erstgespräch zu Ausgangslage, Nutzung und Budget Ihres Vorhabens — Grundlage für die weitere Planung.",
       },
       {
-        title: "Konzept & Angebot",
+        title: "Entwurf & Planung",
         description:
-          "Ein konkreter Vorschlag mit klarem Umfang, Zeitplan und Festpreis — keine Überraschungen, keine versteckten Kosten.",
+          "Entwurfs- und Ausführungsplanung mit Abstimmung der beteiligten Fachdisziplinen, bis zur Baugenehmigung und Ausschreibung.",
       },
       {
-        title: "Umsetzung & Übergabe",
+        title: "Bauüberwachung & Übergabe",
         description:
-          "Umsetzung mit regelmäßigen Zwischenständen und einer sauberen Übergabe inklusive allem, was Sie für den Betrieb brauchen.",
+          "Begleitung der Bauausführung vor Ort bis zur Abnahme und mängelfreien Übergabe.",
       },
     ],
   },
@@ -144,9 +144,8 @@ export const home: HomeContent = {
   },
   cta: {
     title: "Bereit für den nächsten Schritt?",
-    subtitle:
-      "Ein letzter, ruhiger Aufruf ohne Druck: das Angebot in einem Satz und die Einladung, ins Gespräch zu kommen.",
-    action: { label: "Kostenloses Erstgespräch vereinbaren", href: "/kontakt" },
-    note: "Unverbindlich. Antwort innerhalb von 24 Stunden.",
+    subtitle: "Erzählen Sie uns von Ihrem Vorhaben — wir melden uns zurück.",
+    action: { label: "Erstgespräch vereinbaren", href: "/kontakt" },
+    note: "Wir melden uns nach Ihrer Anfrage zurück.",
   },
 };

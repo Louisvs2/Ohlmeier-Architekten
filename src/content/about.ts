@@ -1,7 +1,9 @@
-// Placeholder content for the about page. Replaced per client from the
-// CLIENT.md briefing (§2, §5, §6).
+// Über-uns-Inhalte für Ohlmeier Architekten, recherchiert aus öffentlichen
+// Quellen (CLIENT.md §2, §5). Werte-Sektion bleibt bewusst allgemein
+// gehalten, bis der Kunde eigene Formulierungen liefert (CLIENT.md §6) —
+// keine erfundenen Alleinstellungsmerkmale.
 
-import { Handshake, Sparkles, Target } from "lucide-react";
+import { Building2, Handshake, Users } from "lucide-react";
 
 import type { Feature } from "@/components/sections/features";
 import type { Action, SectionIntro } from "@/types/content";
@@ -15,35 +17,35 @@ interface AboutContent {
 export const about: AboutContent = {
   hero: {
     eyebrow: "Über uns",
-    title: "Wer hinter der Arbeit steht",
+    title: "Architektur aus Kassel, seit 1992",
     subtitle:
-      "Zwei bis drei Sätze zur Geschichte und Haltung des Unternehmens: seit wann, für wen, und was die Arbeit auszeichnet. Menschen kaufen von Menschen.",
+      "Ohlmeier Architekten plant und begleitet Bauvorhaben von der ersten Idee bis zur Übergabe — von Ein- und Zweifamilienhäusern über Büro- und Verwaltungsbauten bis zu Pflege- und Bildungseinrichtungen. Geführt von Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc.",
   },
   values: {
     intro: {
-      eyebrow: "Werte",
-      title: "Wofür wir stehen",
+      eyebrow: "Das Büro",
+      title: "Was uns auszeichnet",
       subtitle:
-        "Drei Werte, die sich im Alltag beweisen — keine Floskeln, sondern überprüfbare Arbeitsweisen.",
+        "Verifizierte Fakten — die persönliche Haltung dazu ergänzt der Kunde in eigenen Worten.",
     },
     items: [
       {
+        icon: Building2,
+        title: "34 Jahre Erfahrung",
+        description:
+          "Bürogründung 1992 in Kassel — kontinuierliche Erfahrung über alle Leistungsphasen und Gebäudetypologien hinweg.",
+      },
+      {
+        icon: Users,
+        title: "Generationsübergreifend",
+        description:
+          "Geführt von Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc. — zwei Partner, eine gemeinsame Handschrift.",
+      },
+      {
         icon: Handshake,
-        title: "Wert Eins",
+        title: "Mitglied im BDA",
         description:
-          "Was dieser Wert konkret im Projektalltag bedeutet und woran Kundinnen und Kunden ihn merken.",
-      },
-      {
-        icon: Target,
-        title: "Wert Zwei",
-        description:
-          "Was dieser Wert konkret im Projektalltag bedeutet und woran Kundinnen und Kunden ihn merken.",
-      },
-      {
-        icon: Sparkles,
-        title: "Wert Drei",
-        description:
-          "Was dieser Wert konkret im Projektalltag bedeutet und woran Kundinnen und Kunden ihn merken.",
+          "Mitgliedschaft im Bund Deutscher Architektinnen und Architekten als Qualitäts- und Berufsstandard.",
       },
     ],
   },
@@ -52,6 +54,6 @@ export const about: AboutContent = {
     subtitle:
       "Ein kurzes Gespräch sagt mehr als jede Website. Wir freuen uns auf Ihr Anliegen.",
     action: { label: "Kontakt aufnehmen", href: "/kontakt" },
-    note: "Unverbindlich. Antwort innerhalb von 24 Stunden.",
+    note: "Wir melden uns nach Ihrer Anfrage zurück.",
   },
 };

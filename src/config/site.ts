@@ -24,12 +24,18 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Website Template",
-  description: "Agency starter template for marketing websites.",
+  name: "Ohlmeier Architekten",
+  description:
+    "Architekturbüro in Kassel — Entwurf, Ausführungsplanung und Bauüberwachung für Wohn-, Büro- und Sonderbauten seit 1992.",
   contact: {
-    email: "kontakt@example.de",
-    phone: "+49 89 1234560",
-    address: ["Musterstraße 1", "80331 München"],
+    email: "office@ohlmeier-architekten.de",
+    phone: "+49 561 3085570",
+    address: ["Rolandstraße 4", "34131 Kassel"],
   },
-  socials: [],
+  socials: [
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/ohlmeier_architekten/",
+    },
+  ],
 };
