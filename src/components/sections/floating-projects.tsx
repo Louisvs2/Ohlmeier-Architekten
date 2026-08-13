@@ -56,8 +56,8 @@ function seededRandom(seed: number) {
 }
 
 const COLS = 6;
-const REPEL_RADIUS = 230;
-const REPEL_STRENGTH = 60;
+const REPEL_RADIUS = 210;
+const REPEL_STRENGTH = 32;
 const NEIGHBOR_RADIUS = 220;
 const EASE = 0.09;
 const DRAG_THRESHOLD = 4;
@@ -260,8 +260,12 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
     function tick() {
       const pointer = pointerRef.current;
 
-      // Pass 1: how strongly the pointer alone displaces each tile — a soft
-      // (squared) falloff so it fades gently rather than cutting off sharply.
+      // Pass 1: how strongly the pointer alone displaces each tile. A tile
+      // directly under the pointer barely moves — like water parting around
+      // a hand rather than fleeing from directly beneath it — so a tile
+      // stays put and clickable exactly where you're aiming. The push peaks
+      // a little further out and fades back to nothing at the radius edge
+      // (a bump, not a spike at the centre).
       layout.forEach((tile, i) => {
         const st = statesRef.current[i];
         if (st.dragging || !pointer || reducedMotionRef.current) {
@@ -273,8 +277,8 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
         const dy = st.basePxY + st.settledY - pointer.y;
         const dist = Math.hypot(dx, dy);
         if (dist < REPEL_RADIUS && dist > 0.001) {
-          const t = 1 - dist / REPEL_RADIUS;
-          const strength = t * t * REPEL_STRENGTH;
+          const t = dist / REPEL_RADIUS;
+          const strength = Math.sin(Math.PI * t) * REPEL_STRENGTH;
           rawX[i] = (dx / dist) * strength;
           rawY[i] = (dy / dist) * strength;
         } else {
@@ -367,6 +371,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
                 tileElRefs.current[i] = el;
               }}
               href={tile.href}
+              draggable={false}
               style={{ touchAction: "none" }}
               className="group relative block h-full w-full cursor-grab overflow-hidden transition-shadow duration-200 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring active:cursor-grabbing"
               onPointerDown={(e) => {
@@ -375,6 +380,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
                 dragMovedRef.current = false;
                 statesRef.current[i].dragging = true;
               }}
+              onDragStart={(e) => e.preventDefault()}
               onClick={(e) => {
                 if (dragMovedRef.current) e.preventDefault();
               }}
@@ -386,6 +392,7 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
                     src={photo.src}
                     alt={photo.alt}
                     fill
+                    draggable={false}
                     sizes="(min-width: 1024px) 20vw, 40vw"
                     className="object-cover"
                   />
