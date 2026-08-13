@@ -73,30 +73,27 @@ interface TileLayout extends FloatingTile {
   rotC: number;
 }
 
+// Continuous random size range rather than a few fixed steps, so tiles
+// read as genuinely, unpredictably varied instead of clustering into
+// visible "small/medium/large" groups. Tiles with a real photo get a
+// higher floor since they have the best content to show off.
+const SIZE_MIN = 84;
+const SIZE_MAX = 264;
+const PHOTO_SIZE_MIN = 150;
+
 function computeLayout(tiles: FloatingTile[]): TileLayout[] {
   const rows = Math.max(1, Math.ceil(tiles.length / COLS));
   const cellW = 100 / COLS;
   const cellH = 100 / rows;
-  // Small / medium / large / feature — a much wider spread than a single
-  // narrow range, so the field reads as genuinely varied. Tiles with a real
-  // photo are biased toward the bigger steps since they have the best
-  // content to show off.
-  const sizeSteps = [108, 148, 196, 248];
 
   return tiles.map((tile, i) => {
     const rand = seededRandom(i * 97 + 13);
     const col = i % COLS;
     const row = Math.floor(i / COLS);
-    const roll = rand();
-    let sizeIndex: number;
-    if (tile.image) {
-      sizeIndex = roll < 0.55 ? 2 : 3;
-    } else {
-      sizeIndex = roll < 0.4 ? 0 : roll < 0.75 ? 1 : roll < 0.93 ? 2 : 3;
-    }
+    const sizeMin = tile.image ? PHOTO_SIZE_MIN : SIZE_MIN;
     return {
       ...tile,
-      size: sizeSteps[sizeIndex] + Math.round(rand() * 24),
+      size: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
       leftPct: col * cellW + cellW / 2 + (rand() - 0.5) * cellW * 0.7,
       topPct: row * cellH + cellH / 2 + (rand() - 0.5) * cellH * 0.7,
       floatDx: 10 + rand() * 16,
