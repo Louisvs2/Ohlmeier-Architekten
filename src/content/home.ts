@@ -42,7 +42,7 @@ const teaserSlugs = [
 export const home: HomeContent = {
   hero: {
     eyebrow: "Architekturbüro in Kassel · seit 1992",
-    title: "Ort, Nutzung, Budget und Ökologie zu einem Raumerlebnis verdichtet",
+    title: "Bauen ist ein Prozess.",
     subtitle:
       "Ohlmeier Architekten begleitet Bauvorhaben von der ersten Skizze bis zum Projektabschluss — mit klarer Gestaltung und einem gezielten Einsatz gestalterischer Mittel.",
     actions: {

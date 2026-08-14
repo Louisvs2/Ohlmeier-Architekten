@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
+import { Logo } from "@/components/layout/logo";
 import { Section } from "@/components/layout/section";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -401,6 +402,65 @@ export function HeroEditorial({
                 sizes="100vw"
                 className="aspect-[16/9] lg:aspect-[21/9]"
               />
+            </FadeIn>
+          )}
+        </FadeInStagger>
+      </Container>
+    </Section>
+  );
+}
+
+/**
+ * Brand-mark hero: the real mark carries the opening — large, in full
+ * brand colour — with a short slogan underneath and quiet actions below
+ * that. No headline competing with the mark for attention. Part of the
+ * premium Hero System.
+ */
+export function HeroBrandMark({
+  slogan,
+  actions,
+  className,
+}: {
+  slogan: string;
+  actions?: HeroActions;
+  className?: string;
+}) {
+  return (
+    <Section
+      className={cn(
+        "relative isolate overflow-hidden py-24 sm:py-32 lg:py-40",
+        className,
+      )}
+    >
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <BackgroundRippleEffect className="h-full w-full" />
+      </div>
+      <Container>
+        <FadeInStagger className="flex flex-col items-center gap-8 text-center sm:gap-10">
+          <FadeIn>
+            <Logo className="h-28 sm:h-36 lg:h-44" />
+          </FadeIn>
+          <FadeIn>
+            <h1 className="max-w-xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+              {slogan}
+            </h1>
+          </FadeIn>
+          {actions && (
+            <FadeIn>
+              <div className="flex flex-col items-center gap-3 sm:flex-row">
+                <Button asChild size="sm">
+                  <Link href={actions.primary.href}>
+                    {actions.primary.label}
+                  </Link>
+                </Button>
+                {actions.secondary && (
+                  <Button asChild size="sm" variant="ghost">
+                    <Link href={actions.secondary.href}>
+                      {actions.secondary.label}
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </FadeIn>
           )}
         </FadeInStagger>

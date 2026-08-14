@@ -15,7 +15,7 @@ export function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-xs">
             <Link href="/" aria-label={`${siteConfig.name} – Startseite`}>
-              <Logo className="h-7 text-2xl" />
+              <Logo className="h-7" />
             </Link>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
