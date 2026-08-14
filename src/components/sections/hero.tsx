@@ -7,6 +7,7 @@ import { Section } from "@/components/layout/section";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { Magnetic } from "@/components/motion/magnetic";
 import { HeroVisual } from "@/components/sections/hero-visual";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Action, HeroMedia, SectionImage } from "@/types/content";
@@ -355,7 +356,15 @@ export function HeroEditorial({
   className,
 }: HeroBaseProps & { media?: HeroMedia }) {
   return (
-    <Section className={cn("py-28 sm:py-36 lg:py-44", className)}>
+    <Section
+      className={cn(
+        "relative isolate overflow-hidden py-28 sm:py-36 lg:py-44",
+        className,
+      )}
+    >
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <BackgroundRippleEffect className="h-full w-full" />
+      </div>
       <Container>
         <FadeInStagger className="flex flex-col gap-8 sm:gap-10">
           {eyebrow && (
