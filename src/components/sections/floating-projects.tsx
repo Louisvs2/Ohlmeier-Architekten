@@ -12,16 +12,15 @@ import {
   type MosaicMaterial,
 } from "@/lib/materials";
 
-// A playful alternative to ProjectMosaic's calm editorial grid: every
-// project tile drifts slowly through the space, pushes away from the
+// Every project tile drifts slowly through the space, pushes away from the
 // pointer like water when you swipe through, and can be grabbed and shoved
 // around. Deliberately built WITHOUT a motion library — the idle drift is a
 // plain CSS animation (compositor-only, free), and the water-repel + drag
 // are driven by a single shared requestAnimationFrame loop that writes
 // transforms straight to the DOM via refs (no React re-renders per frame).
 // This mirrors the hand-rolled, direct-style-mutation pattern already used
-// by `magnetic.tsx`/`spotlight-card.tsx` elsewhere in this codebase, and is
-// what makes 30+ simultaneously-animated tiles stay smooth.
+// by `magnetic.tsx` elsewhere in this codebase, and is what makes 30+
+// simultaneously-animated tiles stay smooth.
 //
 // Always renders this same tile field (never swaps to a different DOM tree
 // for prefers-reduced-motion — that used to cause a visible "pop" on every
@@ -44,6 +43,16 @@ export interface FloatingTile {
 interface FloatingProjectsProps {
   tiles: FloatingTile[];
   className?: string;
+  /** Grid columns the layout is seeded from — fewer columns gives each tile
+   *  more room, which matters when there are only a handful of tiles (a
+   *  homepage teaser) versus a full project list. */
+  cols?: number;
+  /** Smallest/largest a plain (photo-less, material-texture) tile can be. */
+  sizeMin?: number;
+  sizeMax?: number;
+  /** Floor for tiles that carry a real photo — they get to be bigger since
+   *  they have the best content to show off. */
+  photoSizeMin?: number;
 }
 
 function seededRandom(seed: number) {
@@ -55,7 +64,10 @@ function seededRandom(seed: number) {
   };
 }
 
-const COLS = 6;
+const DEFAULT_COLS = 6;
+const DEFAULT_SIZE_MIN = 84;
+const DEFAULT_SIZE_MAX = 264;
+const DEFAULT_PHOTO_SIZE_MIN = 150;
 const REPEL_RADIUS = 210;
 const REPEL_STRENGTH = 32;
 const NEIGHBOR_RADIUS = 220;
@@ -81,24 +93,26 @@ interface TileLayout extends FloatingTile {
 // landscapes, the occasional square — instead of always being square.
 // Tiles with a real photo get a higher floor on both axes since they have
 // the best content to show off.
-const SIZE_MIN = 84;
-const SIZE_MAX = 264;
-const PHOTO_SIZE_MIN = 150;
-
-function computeLayout(tiles: FloatingTile[]): TileLayout[] {
-  const rows = Math.max(1, Math.ceil(tiles.length / COLS));
-  const cellW = 100 / COLS;
+function computeLayout(
+  tiles: FloatingTile[],
+  cols: number,
+  sizeMin: number,
+  sizeMax: number,
+  photoSizeMin: number,
+): TileLayout[] {
+  const rows = Math.max(1, Math.ceil(tiles.length / cols));
+  const cellW = 100 / cols;
   const cellH = 100 / rows;
 
   return tiles.map((tile, i) => {
     const rand = seededRandom(i * 97 + 13);
-    const col = i % COLS;
-    const row = Math.floor(i / COLS);
-    const sizeMin = tile.image ? PHOTO_SIZE_MIN : SIZE_MIN;
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const floor = tile.image ? photoSizeMin : sizeMin;
     return {
       ...tile,
-      width: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
-      height: Math.round(sizeMin + rand() * (SIZE_MAX - sizeMin)),
+      width: Math.round(floor + rand() * (sizeMax - floor)),
+      height: Math.round(floor + rand() * (sizeMax - floor)),
       leftPct: col * cellW + cellW / 2 + (rand() - 0.5) * cellW * 0.7,
       topPct: row * cellH + cellH / 2 + (rand() - 0.5) * cellH * 0.7,
       floatDx: 10 + rand() * 16,
@@ -160,11 +174,21 @@ function useReducedMotionRef() {
   return reducedRef;
 }
 
-export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
+export function FloatingProjects({
+  tiles,
+  className,
+  cols = DEFAULT_COLS,
+  sizeMin = DEFAULT_SIZE_MIN,
+  sizeMax = DEFAULT_SIZE_MAX,
+  photoSizeMin = DEFAULT_PHOTO_SIZE_MIN,
+}: FloatingProjectsProps) {
   const reducedMotionRef = useReducedMotionRef();
   const containerRef = useRef<HTMLDivElement>(null);
   const tileElRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const layout = useMemo(() => computeLayout(tiles), [tiles]);
+  const layout = useMemo(
+    () => computeLayout(tiles, cols, sizeMin, sizeMax, photoSizeMin),
+    [tiles, cols, sizeMin, sizeMax, photoSizeMin],
+  );
   const statesRef = useRef<TileState[]>([]);
   if (statesRef.current.length !== layout.length) {
     statesRef.current = layout.map(() => createState());
@@ -333,13 +357,14 @@ export function FloatingProjects({ tiles, className }: FloatingProjectsProps) {
     };
   }, [layout, reducedMotionRef]);
 
-  const rows = Math.max(1, Math.ceil(tiles.length / COLS));
+  const rows = Math.max(1, Math.ceil(tiles.length / cols));
+  const rowHeight = Math.max(200, sizeMax * 0.85);
 
   return (
     <div
       ref={containerRef}
       className={cn("relative w-full overflow-hidden", className)}
-      style={{ height: Math.max(560, rows * 200) }}
+      style={{ height: Math.max(560, rows * rowHeight) }}
     >
       {layout.map((tile, i) => (
         <div

@@ -9,14 +9,11 @@
 // Leistungen-Übersicht als unterstützende Liste angezeigt, nicht als
 // eigene Detailseite.
 
-import { Compass, Layers, type LucideIcon, PenTool, Ruler } from "lucide-react";
-
 import type { Feature } from "@/components/sections/features";
 import type { SectionIntro } from "@/types/content";
 
 export interface ServiceDetail {
   slug: string;
-  icon: LucideIcon;
   title: string;
   /** Short card/teaser description, also used as meta description. */
   excerpt: string;
@@ -28,7 +25,6 @@ export interface ServiceDetail {
 export const services: ServiceDetail[] = [
   {
     slug: "entwurfsplanung",
-    icon: Compass,
     title: "Entwurfsplanung",
     excerpt:
       "Gebäude-Entwurfsplanung — aus Ort, Nutzung, Budget und Ökologie entsteht ein stimmiges räumliches Konzept.",
@@ -61,7 +57,6 @@ export const services: ServiceDetail[] = [
   },
   {
     slug: "ausfuehrungsplanung",
-    icon: PenTool,
     title: "Ausführungsplanung",
     excerpt:
       "Gebäude-Ausführungsplanung mit verlässlicher Einhaltung von Qualitäts-, Termin- und Kostenzielen.",
@@ -94,7 +89,6 @@ export const services: ServiceDetail[] = [
   },
   {
     slug: "grundlagenplanung-projektstudien",
-    icon: Ruler,
     title: "Grundlagenplanung & Projektstudien",
     excerpt:
       "Gutachten, Standortuntersuchungen sowie Projektstudien, Entwicklungs- und Programmplanungen als fundierte Basis für Ihr Vorhaben.",
@@ -125,7 +119,6 @@ export const services: ServiceDetail[] = [
   },
   {
     slug: "innenausbau-farbkonzepte",
-    icon: Layers,
     title: "Innenausbau & Farbkonzepte",
     excerpt:
       "Planungen zum Innenausbau und Farbkonzepte — Raumerlebnis bis ins Detail.",

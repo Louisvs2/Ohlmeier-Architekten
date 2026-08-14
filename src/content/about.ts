@@ -2,8 +2,6 @@
 // "OA"-Seite (Philosophie-Zitat, "Das Architekturbüro"-Absatz,
 // Projekt-Schwerpunkte). Team kommt separat aus src/content/team.ts.
 
-import { Building2, Handshake, Users } from "lucide-react";
-
 import type { Feature } from "@/components/sections/features";
 import type { Action, SectionIntro } from "@/types/content";
 
@@ -31,19 +29,16 @@ export const about: AboutContent = {
     },
     items: [
       {
-        icon: Building2,
         title: "34 Jahre Erfahrung",
         description:
           "Bürogründung 1992 in Kassel — kontinuierliche Erfahrung über alle Leistungsphasen und Gebäudetypologien hinweg.",
       },
       {
-        icon: Users,
         title: "Generationsübergreifend",
         description:
           "Geführt von Dipl.-Ing. Hans-Georg Ohlmeier und Philipp Ohlmeier, M.Sc. — zwei Partner, eine gemeinsame Handschrift.",
       },
       {
-        icon: Handshake,
         title: "Mitglied im BDA",
         description:
           "Mitgliedschaft im Bund Deutscher Architektinnen und Architekten als Qualitäts- und Berufsstandard.",

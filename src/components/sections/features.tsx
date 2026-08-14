@@ -1,21 +1,19 @@
-import { ArrowUpRight, type LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { Section, type SectionBackground } from "@/components/layout/section";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
-import { SpotlightCard } from "@/components/motion/spotlight-card";
+import { PlanCard } from "@/components/motion/plan-card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { cn } from "@/lib/utils";
 import type { SectionIntro } from "@/types/content";
 
 export interface Feature {
-  icon?: LucideIcon;
   title: string;
   description: string;
 }
 
 export interface Service {
-  icon?: LucideIcon;
   title: string;
   description: string;
   href: string;
@@ -27,10 +25,18 @@ interface FeaturesBaseProps {
   className?: string;
 }
 
-function FeatureIcon({ icon: Icon }: { icon: LucideIcon }) {
+// A sheet marker, not a stock icon: the numbered circle-with-tail is the
+// reference bubble architects use to point from a plan to a detail drawn
+// elsewhere — borrowed here as the index for each item instead of a generic
+// icon-in-a-box.
+function FeatureIcon({ index }: { index: number }) {
   return (
-    <div className="flex size-11 items-center justify-center rounded-xl border border-border/60 bg-background/60 backdrop-blur-[var(--glass-blur)] transition-colors group-hover:border-brand/40 group-hover:text-brand">
-      <Icon className="size-5" aria-hidden />
+    <div
+      aria-hidden
+      className="relative flex size-11 shrink-0 items-center justify-center rounded-full border border-border/70 font-mono text-xs text-muted-foreground transition-colors duration-200 group-hover:border-brand group-hover:text-brand"
+    >
+      {String(index + 1).padStart(2, "0")}
+      <span className="absolute top-1/2 -right-4 h-px w-4 -translate-y-1/2 bg-border/70 transition-colors duration-200 group-hover:bg-brand" />
     </div>
   );
 }
@@ -48,10 +54,10 @@ export function FeatureGrid({
         {intro && <SectionHeading {...intro} />}
         <FadeInStagger fast className={cn(intro && "mt-14 sm:mt-20")}>
           <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((feature) => (
+            {items.map((feature, i) => (
               <li key={feature.title}>
                 <FadeIn className="flex flex-col gap-4">
-                  {feature.icon && <FeatureIcon icon={feature.icon} />}
+                  <FeatureIcon index={i} />
                   <div>
                     <h3 className="text-base font-medium">{feature.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -82,10 +88,10 @@ export function FeatureSplit({
           <SectionHeading {...intro} align="start" />
           <FadeInStagger fast className="lg:col-span-2">
             <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
-              {items.map((feature) => (
+              {items.map((feature, i) => (
                 <li key={feature.title}>
                   <FadeIn className="flex flex-col gap-4">
-                    {feature.icon && <FeatureIcon icon={feature.icon} />}
+                    <FeatureIcon index={i} />
                     <div>
                       <h3 className="text-base font-medium">{feature.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -111,32 +117,20 @@ export function ServiceCards({
   className,
 }: FeaturesBaseProps & { items: Service[] }) {
   return (
-    <Section
-      background={background}
-      className={cn("relative isolate overflow-hidden", className)}
-    >
-      {/* Soft brand glow — gives the frosted cards something to blur against. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/3 left-1/2 -z-10 h-[34rem] w-[64rem] max-w-[130%] -translate-x-1/2 rounded-full opacity-[0.1] blur-3xl"
-        style={{
-          background:
-            "radial-gradient(closest-side, var(--brand), transparent)",
-        }}
-      />
+    <Section background={background} className={className}>
       <Container>
         {intro && <SectionHeading {...intro} />}
         <FadeInStagger fast className={cn(intro && "mt-14 sm:mt-20")}>
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {items.map((service) => (
+            {items.map((service, i) => (
               <li key={service.href}>
                 <FadeIn className="h-full">
-                  <SpotlightCard href={service.href}>
+                  <PlanCard href={service.href}>
                     <div className="flex items-start justify-between gap-4">
-                      {service.icon && <FeatureIcon icon={service.icon} />}
+                      <FeatureIcon index={i} />
                       <ArrowUpRight
                         aria-hidden
-                        className="ml-auto size-5 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand"
+                        className="ml-auto size-5 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand"
                       />
                     </div>
                     <h3 className="mt-5 text-base font-medium">
@@ -145,7 +139,7 @@ export function ServiceCards({
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {service.description}
                     </p>
-                  </SpotlightCard>
+                  </PlanCard>
                 </FadeIn>
               </li>
             ))}

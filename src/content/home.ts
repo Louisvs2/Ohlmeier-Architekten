@@ -78,7 +78,6 @@ export const home: HomeContent = {
         "Von der ersten Idee bis zur Übergabe — über alle Leistungsphasen der HOAI.",
     },
     items: services.map((service) => ({
-      icon: service.icon,
       title: service.title,
       description: service.excerpt,
       href: `/leistungen/${service.slug}`,

@@ -26,7 +26,6 @@ export default function LeistungenPage() {
       />
       <ServiceCards
         items={services.map((service) => ({
-          icon: service.icon,
           title: service.title,
           description: service.excerpt,
           href: `/leistungen/${service.slug}`,

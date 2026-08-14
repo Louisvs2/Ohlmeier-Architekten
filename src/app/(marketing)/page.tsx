@@ -25,7 +25,13 @@ export default function HomePage() {
           <SectionHeading {...home.projectsTeaser.intro} />
         </Container>
         <div className="mt-14 px-2 sm:mt-20 sm:px-4">
-          <FloatingProjects tiles={home.projectsTeaser.tiles} />
+          <FloatingProjects
+            tiles={home.projectsTeaser.tiles}
+            cols={4}
+            sizeMin={150}
+            sizeMax={380}
+            photoSizeMin={220}
+          />
         </div>
         <Container className="mt-10 flex justify-center sm:mt-16">
           <Button asChild size="lg" variant="outline">
