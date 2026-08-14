@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
+import { Logo } from "@/components/layout/logo";
 import { Section } from "@/components/layout/section";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -365,7 +366,8 @@ export function HeroEditorial({
       <div aria-hidden className="absolute inset-0 -z-10">
         <BackgroundRippleEffect className="h-full w-full" />
       </div>
-      <Container>
+      <Container className="relative">
+        <Logo className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[clamp(9rem,24vw,22rem)] -translate-x-1/2 -translate-y-1/2 text-[clamp(9rem,24vw,22rem)] text-foreground/[0.05]" />
         <FadeInStagger className="flex flex-col gap-8 sm:gap-10">
           {eyebrow && (
             <FadeIn>
