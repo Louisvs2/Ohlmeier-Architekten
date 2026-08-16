@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { forwardRef } from "react";
 
@@ -54,39 +55,52 @@ export const ProjectDirectory = forwardRef<
 
   return (
     <div>
+      <p className="flex items-center gap-2 text-xs font-semibold tracking-wider text-brand-strong uppercase">
+        <span aria-hidden className="inline-block size-2 bg-brand" />
+        Verzeichnis
+      </p>
       <h2
         ref={ref}
         tabIndex={-1}
-        className="text-xl font-semibold outline-none"
+        className="mt-3 text-3xl leading-[1.1] font-semibold tracking-tight text-balance outline-none sm:text-4xl"
       >
         Alle Projekte
       </h2>
       <Accordion
         type="multiple"
         defaultValue={groups.map((group) => group.key)}
-        className="mt-6"
+        className="mt-10 border-t border-border/70"
       >
         {groups.map((group) => (
           <AccordionItem key={group.key} value={group.key}>
-            <AccordionTrigger className="py-4 text-base">
-              {group.label} ({group.items.length})
+            <AccordionTrigger className="py-5 text-lg font-semibold hover:no-underline">
+              <span className="flex items-center gap-3">
+                <span aria-hidden className="inline-block size-2 bg-brand" />
+                {group.label}
+              </span>
             </AccordionTrigger>
             <AccordionContent>
-              <ul className="grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
                 {group.items.map((project) => (
-                  <li key={project.slug}>
+                  <li key={project.slug} className="border-b border-border/50">
                     <Link
                       href={`/projekte/${project.slug}`}
-                      className="flex items-baseline justify-between gap-3 rounded-md px-2 py-2 text-sm transition-colors hover:bg-muted hover:text-brand focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                      className="group flex items-start justify-between gap-3 rounded-sm py-3 text-sm transition-colors hover:text-brand focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
                     >
-                      <span>{project.title}</span>
-                      {(project.year || project.location) && (
-                        <span className="shrink-0 text-xs text-muted-foreground">
-                          {[project.year, project.location]
-                            .filter(Boolean)
-                            .join(" · ")}
-                        </span>
-                      )}
+                      <span className="min-w-0">{project.title}</span>
+                      <span className="flex shrink-0 items-center gap-2 text-xs text-muted-foreground">
+                        {(project.year || project.location) && (
+                          <span>
+                            {[project.year, project.location]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </span>
+                        )}
+                        <ArrowUpRight
+                          aria-hidden
+                          className="size-3.5 shrink-0 text-brand opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                        />
+                      </span>
                     </Link>
                   </li>
                 ))}
