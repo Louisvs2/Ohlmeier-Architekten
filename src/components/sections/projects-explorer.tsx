@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/layout/container";
+import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import {
   FloatingProjects,
   type FloatingTile,
@@ -23,6 +24,7 @@ interface ProjectsExplorerProps {
 // this page-specific alternate view.
 export function ProjectsExplorer({ tiles, projects }: ProjectsExplorerProps) {
   const [showList, setShowList] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const listTriggerRef = useRef<HTMLButtonElement>(null);
   const isFirstRender = useRef(true);
@@ -42,16 +44,20 @@ export function ProjectsExplorer({ tiles, projects }: ProjectsExplorerProps) {
   if (showList) {
     return (
       <Container>
-        <div className="mb-6 flex justify-end">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowList(false)}
-          >
-            Zur freien Ansicht
-          </Button>
-        </div>
-        <ProjectDirectory ref={headingRef} projects={projects} />
+        <FadeInStagger>
+          <FadeIn className="mb-6 flex justify-end">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowList(false)}
+            >
+              Zur freien Ansicht
+            </Button>
+          </FadeIn>
+          <FadeIn>
+            <ProjectDirectory ref={headingRef} projects={projects} />
+          </FadeIn>
+        </FadeInStagger>
       </Container>
     );
   }
@@ -62,18 +68,27 @@ export function ProjectsExplorer({ tiles, projects }: ProjectsExplorerProps) {
         Zum Erkunden ziehen — klicken oder tippen öffnet das Projekt.
       </p>
       <div className="relative">
-        <FloatingProjects tiles={tiles} />
-        <button
-          ref={listTriggerRef}
-          type="button"
-          onClick={() => setShowList(true)}
-          className={cn(
-            buttonVariants({ size: "lg" }),
-            "absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 shadow-lg",
-          )}
-        >
-          Projekte auflisten
-        </button>
+        <FloatingProjects
+          tiles={tiles}
+          exiting={isExiting}
+          onExitComplete={() => {
+            setShowList(true);
+            setIsExiting(false);
+          }}
+        />
+        {!isExiting && (
+          <button
+            ref={listTriggerRef}
+            type="button"
+            onClick={() => setIsExiting(true)}
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 shadow-lg",
+            )}
+          >
+            Projekte auflisten
+          </button>
+        )}
       </div>
     </div>
   );

@@ -53,6 +53,13 @@ interface FloatingProjectsProps {
   /** Floor for tiles that carry a real photo — they get to be bigger since
    *  they have the best content to show off. */
   photoSizeMin?: number;
+  /** When true, every tile flies outward from the field's centre and fades
+   *  out — a one-shot exit, not a toggleable state. Meant for a parent that
+   *  wants to swap this field for something else once the tiles are gone. */
+  exiting?: boolean;
+  /** Fires once the exit (or, under reduced motion, immediately) has
+   *  finished, so the parent knows it's safe to unmount this field. */
+  onExitComplete?: () => void;
 }
 
 function seededRandom(seed: number) {
@@ -73,6 +80,9 @@ const REPEL_STRENGTH = 32;
 const NEIGHBOR_RADIUS = 220;
 const EASE = 0.09;
 const DRAG_THRESHOLD = 4;
+const EXIT_DURATION = 550;
+const EXIT_MAX_STAGGER = 260;
+const EXIT_STAGGER_STEP = 12;
 
 interface TileLayout extends FloatingTile {
   width: number;
@@ -181,6 +191,8 @@ export function FloatingProjects({
   sizeMin = DEFAULT_SIZE_MIN,
   sizeMax = DEFAULT_SIZE_MAX,
   photoSizeMin = DEFAULT_PHOTO_SIZE_MIN,
+  exiting = false,
+  onExitComplete,
 }: FloatingProjectsProps) {
   const reducedMotionRef = useReducedMotionRef();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -199,6 +211,52 @@ export function FloatingProjects({
   const dragMovedRef = useRef(false);
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const neighborsRef = useRef<{ j: number; weight: number }[][]>([]);
+  const exitingRef = useRef(false);
+  const wasExitingRef = useRef(false);
+  const onExitCompleteRef = useRef(onExitComplete);
+  onExitCompleteRef.current = onExitComplete;
+
+  // A one-shot burst, not a continuous state: on the false→true edge, every
+  // tile flies outward from the field's centre (direction taken straight
+  // from its own seeded grid position, so the burst reads as "the field
+  // scatters" rather than random jitter) and fades out. The shared rAF loop
+  // below stops writing transforms for the duration (via `exitingRef`) so
+  // it can't fight the CSS transition doing the actual animating.
+  useEffect(() => {
+    exitingRef.current = exiting;
+    if (!exiting || wasExitingRef.current) {
+      wasExitingRef.current = exiting;
+      return;
+    }
+    wasExitingRef.current = true;
+
+    if (reducedMotionRef.current) {
+      onExitCompleteRef.current?.();
+      return;
+    }
+
+    layout.forEach((tile, i) => {
+      const el = tileElRefs.current[i];
+      if (!el) return;
+      const dx = tile.leftPct - 50;
+      const dy = tile.topPct - 50;
+      const len = Math.hypot(dx, dy) || 1;
+      const distance = 650 + (i % 5) * 40;
+      const flyX = (dx / len) * distance;
+      const flyY = (dy / len) * distance;
+      const rot = (dx >= 0 ? 1 : -1) * (18 + (i % 6) * 5);
+      const delay = Math.min(i * EXIT_STAGGER_STEP, EXIT_MAX_STAGGER);
+      el.style.transition = `transform ${EXIT_DURATION}ms cubic-bezier(0.4,0,0.2,1) ${delay}ms, opacity ${EXIT_DURATION - 130}ms ease-in ${delay}ms`;
+      el.style.transform = `translate(${flyX.toFixed(0)}px, ${flyY.toFixed(0)}px) rotate(${rot}deg) scale(0.85)`;
+      el.style.opacity = "0";
+    });
+
+    const timer = setTimeout(
+      () => onExitCompleteRef.current?.(),
+      EXIT_DURATION + EXIT_MAX_STAGGER + 60,
+    );
+    return () => clearTimeout(timer);
+  }, [exiting, layout, reducedMotionRef]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -282,6 +340,10 @@ export function FloatingProjects({
 
     let raf = requestAnimationFrame(tick);
     function tick() {
+      if (exitingRef.current) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
       const pointer = pointerRef.current;
 
       // Pass 1: how strongly the pointer alone displaces each tile. A tile
