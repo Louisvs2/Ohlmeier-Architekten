@@ -267,23 +267,6 @@
   }
 }
 
-/* Distance-staggered ripple for the hero background grid
-   (background-ripple-effect.tsx). Pure CSS opacity pulse; per-cell timing
-   comes in via the animation's own delay, set inline from the clicked
-   cell's Chebyshev distance. Covered by the reduced-motion block below like
-   every other animation. */
-@keyframes cell-ripple {
-  0% {
-    opacity: var(--cell-ripple-from, 0.4);
-  }
-  50% {
-    opacity: var(--cell-ripple-peak, 0.8);
-  }
-  100% {
-    opacity: var(--cell-ripple-from, 0.4);
-  }
-}
-
 /* Honour prefers-reduced-motion everywhere (DESIGN.md §10): neutralise CSS
    animations and transitions — including library-driven ones like the mobile
    drawer — so nothing moves for users who opt out. Framer entrances handle

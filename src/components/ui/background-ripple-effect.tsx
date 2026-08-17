@@ -15,18 +15,10 @@ interface BackgroundRippleEffectProps {
 const DEFAULT_COLS = 16;
 const MIN_COLS = 6;
 const MAX_COLS = 48;
-const RIPPLE_DURATION = 900;
-const RIPPLE_STEP_DELAY = 55;
-const RIPPLE_MAX_DELAY = 650;
 
 /**
  * A quiet grid of cells behind hero content: the hovered row picks up a
- * faint highlight, and clicking a cell sends a ripple of brightness pulses
- * outward by Chebyshev distance — a nod to a blueprint grid, in the brand's
- * own orange. Hand-rolled instead of a motion library: with a few hundred
- * simultaneously-animatable cells, writing the animation straight onto DOM
- * refs (the same approach floating-projects.tsx uses for its tile field)
- * stays smooth where per-cell React state or `motion` components would not.
+ * faint highlight — a nod to a blueprint grid, in the brand's own orange.
  * Purely decorative — aria-hidden, no keyboard/focus surface of its own.
  */
 export function BackgroundRippleEffect({
@@ -35,7 +27,6 @@ export function BackgroundRippleEffect({
   rows = 6,
 }: BackgroundRippleEffectProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [cols, setCols] = useState(DEFAULT_COLS);
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
 
@@ -53,24 +44,6 @@ export function BackgroundRippleEffect({
     return () => ro.disconnect();
   }, [cellSize]);
 
-  function triggerRipple(originRow: number, originCol: number) {
-    cellRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const row = Math.floor(i / cols);
-      const col = i % cols;
-      const distance = Math.max(
-        Math.abs(row - originRow),
-        Math.abs(col - originCol),
-      );
-      const delay = Math.min(distance * RIPPLE_STEP_DELAY, RIPPLE_MAX_DELAY);
-      // Reset first so a repeated click restarts the animation instead of
-      // being ignored (identical inline `animation` values don't retrigger).
-      el.style.animation = "none";
-      void el.offsetWidth;
-      el.style.animation = `cell-ripple ${RIPPLE_DURATION}ms ease-out ${delay}ms 1`;
-    });
-  }
-
   const cellCount = cols * rows;
 
   return (
@@ -79,14 +52,10 @@ export function BackgroundRippleEffect({
       data-slot="background-ripple-effect"
       aria-hidden="true"
       className={cn("grid h-full w-full", className)}
-      style={
-        {
-          gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gridTemplateRows: `repeat(${rows}, 1fr)`,
-          "--cell-ripple-from": 0.05,
-          "--cell-ripple-peak": 0.45,
-        } as React.CSSProperties
-      }
+      style={{
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gridTemplateRows: `repeat(${rows}, 1fr)`,
+      }}
       onMouseLeave={() => setHoveredRow(null)}
     >
       {Array.from({ length: cellCount }).map((_, i) => {
@@ -95,11 +64,7 @@ export function BackgroundRippleEffect({
         return (
           <div
             key={i}
-            ref={(el) => {
-              cellRefs.current[i] = el;
-            }}
             onMouseEnter={() => setHoveredRow(row)}
-            onClick={() => triggerRipple(row, col)}
             className={cn(
               "border-t border-l border-brand bg-brand/[0.55] opacity-[0.05] transition-opacity duration-300",
               col === cols - 1 && "border-r",
