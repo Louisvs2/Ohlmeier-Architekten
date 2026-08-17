@@ -12,6 +12,7 @@ import type { Stat } from "@/components/sections/stats";
 import type { Testimonial } from "@/components/shared/testimonial-card";
 import { projects } from "@/content/projects";
 import { services } from "@/content/services";
+import { team } from "@/content/team";
 import type { Action, SectionIntro } from "@/types/content";
 
 interface HomeContent {
@@ -86,6 +87,8 @@ export const home: HomeContent = {
   stats: [
     { value: 34, label: "Jahre Erfahrung" },
     { value: projects.length, label: "Referenzprojekte" },
+    { value: team.length, label: "Team-Mitglieder" },
+    { value: services.length, label: "Leistungsbereiche" },
   ],
   process: {
     intro: {

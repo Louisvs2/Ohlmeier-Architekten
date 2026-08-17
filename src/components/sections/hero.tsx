@@ -505,7 +505,10 @@ export function HeroMaterial({
               </FadeIn>
             )}
             <FadeIn>
-              <h1 className="max-w-3xl text-[2.75rem] leading-[1.02] font-semibold tracking-tight text-balance sm:text-6xl lg:text-[5.5rem] lg:leading-[0.98]">
+              <Logo className="h-20 sm:h-24 lg:h-28" />
+            </FadeIn>
+            <FadeIn>
+              <h1 className="max-w-xl text-xl font-semibold tracking-tight text-balance sm:text-2xl">
                 {title}
               </h1>
             </FadeIn>
