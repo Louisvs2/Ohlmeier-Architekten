@@ -5,11 +5,14 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Logo } from "@/components/layout/logo";
 import { Section } from "@/components/layout/section";
+import { AnimatedNumber } from "@/components/motion/animated-number";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { Magnetic } from "@/components/motion/magnetic";
 import { HeroVisual } from "@/components/sections/hero-visual";
+import type { Stat } from "@/components/sections/stats";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { Button } from "@/components/ui/button";
+import { materialPhotos, type MosaicMaterial } from "@/lib/materials";
 import { cn } from "@/lib/utils";
 import type { Action, HeroMedia, SectionImage } from "@/types/content";
 
@@ -464,6 +467,102 @@ export function HeroBrandMark({
             </FadeIn>
           )}
         </FadeInStagger>
+      </Container>
+    </Section>
+  );
+}
+
+const SWATCH_MATERIALS: MosaicMaterial[] = [
+  "concrete",
+  "wood",
+  "glass",
+  "rust",
+  "steel",
+];
+
+/**
+ * Material hero: one oversized, confident statement carried by type, a
+ * slim strip of real verified numbers underneath it, and a column of real
+ * material photography running alongside — the brand's craft made literal
+ * instead of illustrated. Part of the premium Hero System.
+ */
+export function HeroMaterial({
+  eyebrow,
+  title,
+  subtitle,
+  actions,
+  stats,
+  className,
+}: HeroBaseProps & { stats: Stat[] }) {
+  return (
+    <Section className={cn("py-20 sm:py-28 lg:py-32", className)}>
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <FadeInStagger className="flex min-w-0 flex-col gap-8 lg:col-span-8">
+            {eyebrow && (
+              <FadeIn>
+                <HeroEyebrow>{eyebrow}</HeroEyebrow>
+              </FadeIn>
+            )}
+            <FadeIn>
+              <h1 className="max-w-3xl text-[2.75rem] leading-[1.02] font-semibold tracking-tight text-balance sm:text-6xl lg:text-[5.5rem] lg:leading-[0.98]">
+                {title}
+              </h1>
+            </FadeIn>
+            {subtitle && (
+              <FadeIn>
+                <p className="max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
+                  {subtitle}
+                </p>
+              </FadeIn>
+            )}
+            <FadeIn>
+              <dl className="flex flex-wrap gap-x-10 gap-y-6 border-t pt-6">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="flex flex-col">
+                    <dd className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                      <AnimatedNumber
+                        value={stat.value}
+                        prefix={stat.prefix}
+                        suffix={stat.suffix}
+                      />
+                    </dd>
+                    <dt className="mt-1 text-sm text-muted-foreground">
+                      {stat.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            </FadeIn>
+            {actions && (
+              <FadeIn className="pt-2">
+                <HeroButtons actions={actions} />
+              </FadeIn>
+            )}
+          </FadeInStagger>
+          <FadeIn className="min-w-0 lg:col-span-4 lg:h-full">
+            <div className="flex gap-2 overflow-x-auto lg:h-full lg:flex-col lg:gap-3 lg:overflow-visible">
+              {SWATCH_MATERIALS.map((material) => {
+                const photo = materialPhotos[material];
+                if (!photo) return null;
+                return (
+                  <div
+                    key={material}
+                    className="relative h-28 w-24 shrink-0 overflow-hidden lg:h-auto lg:w-full lg:flex-1"
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1024px) 20vw, 30vw"
+                      className="object-cover"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </FadeIn>
+        </div>
       </Container>
     </Section>
   );
