@@ -4,10 +4,9 @@
 
 export const energieberatung = {
   hero: {
-    title:
-      "Energieeffizientes Bauen bedeutet für uns, Architektur, Wirtschaftlichkeit und Nachhaltigkeit zu einer dauerhaften Qualität zu verbinden.",
+    title: "Energieeffizientes Bauen",
     subtitle:
-      "Wir entwickeln energieeffiziente und nachhaltige Planungsansätze für Neubau-, Sanierungs- und Modernisierungsprojekte mit architektonischem Anspruch.",
+      "Für uns bedeutet das, Architektur, Wirtschaftlichkeit und Nachhaltigkeit zu einer dauerhaften Qualität zu verbinden.",
   },
   intro:
     "Wir entwickeln energieeffiziente und nachhaltige Planungsansätze für Neubau-, Sanierungs- und Modernisierungsprojekte mit architektonischem Anspruch. Das bedeutet energetische Optimierung von Gebäuden für öffentliche, gewerbliche und institutionelle Auftraggeber sowie private Auftraggeber. Steigende Anforderungen an Energieeffizienz, Klimaschutz und Ressourcenschonung prägen die Entwicklung von Neubauten und Bestandsgebäuden. Wir unterstützen dabei, Potenziale frühzeitig zu erkennen und fundierte Entscheidungen für eine nachhaltige und wirtschaftliche Gebäudeentwicklung zu treffen.",
