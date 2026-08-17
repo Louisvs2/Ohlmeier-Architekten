@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/section";
 import { CTA } from "@/components/sections/cta";
 import { Gallery } from "@/components/sections/gallery";
 import { HeroStatement } from "@/components/sections/hero";
+import { PhotoLineReveal } from "@/components/sections/photo-line-reveal";
 import { materialPhotos, materialTreatments } from "@/lib/materials";
 import { projects, projectsPage } from "@/content/projects";
 import { createMetadata } from "@/lib/metadata";
@@ -55,8 +56,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         }
         className="py-20 sm:py-24 lg:py-28"
       />
+      {project.image && <PhotoLineReveal image={project.image} />}
       {project.gallery ? (
-        <Gallery images={project.gallery} background="muted" />
+        <Gallery
+          images={
+            project.image
+              ? project.gallery.filter(
+                  (photo) => photo.src !== project.image!.src,
+                )
+              : project.gallery
+          }
+          background="muted"
+        />
       ) : (
         // Placeholder visual until real project photography is delivered
         // (CLIENT.md §18) — a real material macro-photo where one exists,
